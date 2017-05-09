@@ -10,7 +10,7 @@ namespace CourseTasks
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("HW!");
+            Console.WriteLine("HW!") ;
         }
     }
 }
