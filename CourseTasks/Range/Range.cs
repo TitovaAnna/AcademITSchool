@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Range
 {
@@ -39,7 +36,7 @@ namespace Range
         public Range GetCrossing(Range range)
         {
 
-            if ((From > range.To) || (range.From > To))
+            if ((From >= range.To) || (range.From >= To))
             {
                 return null;
             }
@@ -51,49 +48,51 @@ namespace Range
             }
         }
 
-
         public Range[] GetCombination(Range range)
         {
-
             if ((From > range.To) || (range.From > To))
             {
-                Range[] newRangeArray = { this, range };
-                return newRangeArray;
+                Range range1 = this;
+                Range range2 = range;
+                Range[] newRangeArrayNull = { range1, range2 };
+                return newRangeArrayNull;
             }
-            else
-            {
-                double min = (From < range.From) ? From : range.From;
-                double max = (To > range.To) ? To : range.To;
-                Range newRange = new Range(min, max);
-                Range[] newRangeArray = { newRange };
-                return newRangeArray;
-            }
+
+            double min = Math.Min(From, range.From);
+            double max = Math.Max(To, range.To);
+
+            Range newRange = new Range(min, max);
+            Range[] newRangeArray = { newRange };
+
+            return newRangeArray;
+
         }
 
         public Range[] GetDifference(Range range)
         {
 
-            if ((From > range.To) || (range.From > To))
+            if ((From >= range.To) || (range.From >= To))
             {
-                Range[] newRangeArray = { this };
-                return newRangeArray;
+                Range range1 = this;
+                Range[] newRangeArraySingle = { range1 };
+                return newRangeArraySingle;
             }
             else if ((To > range.To) && (From < range.From))
             {
-                Range[] newRangeArray = { new Range(From, range.From), new Range(range.To, To) };
-                return newRangeArray;
+                Range[] newRangeArrayCouple = { new Range(From, range.From), new Range(range.To, To) };
+                return newRangeArrayCouple;
             }
             else if ((To < range.To) && (From > range.From))
             {
-                return null;
+                Range[] newRangeArrayNull = { };
+                return newRangeArrayNull;
             }
-            else
-            {
-                double min = (From < range.From) ? From : range.From;
-                double max = (To > range.To) ? range.To : To;
-                Range[] newRangeArray = { new Range(min, max) };
-                return newRangeArray;
-            }
+
+            double min = Math.Min(From, range.From);
+            double max = Math.Max(To, range.To);
+
+            Range[] newRangeArray = { new Range(min, max) };
+            return newRangeArray;
         }
 
     }

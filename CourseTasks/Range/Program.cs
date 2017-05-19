@@ -6,8 +6,8 @@ namespace Range
     {
         static void Main(string[] args)
         {
-            Range range1 = new Range(12, 40);
-            Range range2 = new Range(19, 37);
+            Range range1 = new Range(20, 34);
+            Range range2 = new Range(34, 37);
 
             Range newRange = range1.GetCrossing(range2);
 
