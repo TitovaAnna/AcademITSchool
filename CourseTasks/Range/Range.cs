@@ -35,25 +35,21 @@ namespace Range
 
         public Range GetCrossing(Range range)
         {
-
             if ((From >= range.To) || (range.From >= To))
             {
                 return null;
             }
-            else
-            {
-                double rangeNewFrom = (From > range.From) ? From : range.From;
-                double rangeNewTo = (To < range.To) ? To : range.To;
-                return new Range(rangeNewFrom, rangeNewTo);
-            }
+            double rangeNewFrom = Math.Max(From, range.From);
+            double rangeNewTo = Math.Min(To, range.To);
+            return new Range(rangeNewFrom, rangeNewTo);
         }
 
         public Range[] GetCombination(Range range)
         {
             if ((From > range.To) || (range.From > To))
             {
-                Range range1 = this;
-                Range range2 = range;
+                Range range1 = new Range(From, To);
+                Range range2 = new Range(range.From, range.To);
                 Range[] newRangeArrayNull = { range1, range2 };
                 return newRangeArrayNull;
             }
@@ -65,15 +61,13 @@ namespace Range
             Range[] newRangeArray = { newRange };
 
             return newRangeArray;
-
         }
 
         public Range[] GetDifference(Range range)
         {
-
             if ((From >= range.To) || (range.From >= To))
             {
-                Range range1 = this;
+                Range range1 = new Range(From, To);
                 Range[] newRangeArraySingle = { range1 };
                 return newRangeArraySingle;
             }
