@@ -39,9 +39,7 @@ namespace Range
             {
                 return null;
             }
-            double rangeNewFrom = Math.Max(From, range.From);
-            double rangeNewTo = Math.Min(To, range.To);
-            return new Range(rangeNewFrom, rangeNewTo);
+            return new Range(Math.Max(From, range.From), Math.Min(To, range.To));
         }
 
         public Range[] GetCombination(Range range)
@@ -54,10 +52,7 @@ namespace Range
                 return newRangeArrayNull;
             }
 
-            double min = Math.Min(From, range.From);
-            double max = Math.Max(To, range.To);
-
-            Range newRange = new Range(min, max);
+            Range newRange = new Range(Math.Min(From, range.From), Math.Max(To, range.To));
             Range[] newRangeArray = { newRange };
 
             return newRangeArray;
@@ -82,10 +77,7 @@ namespace Range
                 return newRangeArrayNull;
             }
 
-            double min = Math.Min(From, range.From);
-            double max = Math.Max(To, range.To);
-
-            Range[] newRangeArray = { new Range(min, max) };
+            Range[] newRangeArray = { new Range(Math.Min(From, range.From), Math.Max(To, range.To)) };
             return newRangeArray;
         }
 
