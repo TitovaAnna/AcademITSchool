@@ -6,8 +6,8 @@ namespace Range
     {
         static void Main(string[] args)
         {
-            Range range1 = new Range(20, 34);
-            Range range2 = new Range(34, 37);
+            Range range1 = new Range(40, 70);
+            Range range2 = new Range(46, 80);
 
             Range newRange = range1.GetCrossing(range2);
 
@@ -21,21 +21,21 @@ namespace Range
             }
 
             Range[] rangeCombination = range1.GetCombination(range2);
-            PrindRangeArray(rangeCombination);
+            PrintRangeArray(rangeCombination);
 
             Range[] rangeDifference = range1.GetDifference(range2);
-            if (rangeDifference == null)
+            if (rangeDifference.Length == 0)
             {
                 Console.WriteLine("Нет решения");
             }
             else
             {
-                PrindRangeArray(rangeDifference);
+                PrintRangeArray(rangeDifference);
             }
             Console.ReadKey();
         }
 
-        public static void PrindRangeArray(Range[] rangeArray)
+        public static void PrintRangeArray(Range[] rangeArray)
         {
             if (rangeArray.Length == 2)
             {

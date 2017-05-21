@@ -48,8 +48,9 @@ namespace Range
             {
                 Range range1 = new Range(From, To);
                 Range range2 = new Range(range.From, range.To);
-                Range[] newRangeArrayNull = { range1, range2 };
-                return newRangeArrayNull;
+                Range[] newRangeArrayCouple = { range1, range2 };
+
+                return newRangeArrayCouple;
             }
 
             Range newRange = new Range(Math.Min(From, range.From), Math.Max(To, range.To));
@@ -76,8 +77,14 @@ namespace Range
                 Range[] newRangeArrayNull = { };
                 return newRangeArrayNull;
             }
-
-            Range[] newRangeArray = { new Range(Math.Min(From, range.From), Math.Max(To, range.To)) };
+            else if (From < range.From)
+            {
+                Range range1 = new Range(From, range.From);
+                Range[] newRangeArraySingle = { range1 };
+                return newRangeArraySingle;
+            }
+            Range range2 = new Range(range.To, To);
+            Range[] newRangeArray = { range2 };
             return newRangeArray;
         }
 
