@@ -13,15 +13,18 @@ namespace Range
             this.from = from;
             this.to = to;
         }
+
         public double Length
         {
             get { return to - from; }
         }
+
         public double From
         {
             get { return from; }
             set { from = value; }
         }
+
         public double To
         {
             get { return to; }
@@ -46,47 +49,30 @@ namespace Range
         {
             if ((From > range.To) || (range.From > To))
             {
-                Range range1 = new Range(From, To);
-                Range range2 = new Range(range.From, range.To);
-                Range[] newRangeArrayCouple = { range1, range2 };
-
-                return newRangeArrayCouple;
+                return new Range[] { new Range(From, To), new Range(range.From, range.To) };
             }
-
-            Range newRange = new Range(Math.Min(From, range.From), Math.Max(To, range.To));
-            Range[] newRangeArray = { newRange };
-
-            return newRangeArray;
+            return new Range[] { new Range(Math.Min(From, range.From), Math.Max(To, range.To)) };
         }
 
         public Range[] GetDifference(Range range)
         {
             if ((From >= range.To) || (range.From >= To))
             {
-                Range range1 = new Range(From, To);
-                Range[] newRangeArraySingle = { range1 };
-                return newRangeArraySingle;
+                return new Range[] { new Range(From, To) };
             }
             else if ((To > range.To) && (From < range.From))
             {
-                Range[] newRangeArrayCouple = { new Range(From, range.From), new Range(range.To, To) };
-                return newRangeArrayCouple;
+                return new Range[] { new Range(From, range.From), new Range(range.To, To) };
             }
-            else if ((To < range.To) && (From > range.From))
+            else if ((To <= range.To) && (From >= range.From))
             {
-                Range[] newRangeArrayNull = { };
-                return newRangeArrayNull;
+                return new Range[] { };
             }
             else if (From < range.From)
             {
-                Range range1 = new Range(From, range.From);
-                Range[] newRangeArraySingle = { range1 };
-                return newRangeArraySingle;
+                return new Range[] { new Range(From, range.From) };
             }
-            Range range2 = new Range(range.To, To);
-            Range[] newRangeArray = { range2 };
-            return newRangeArray;
+            return new Range[] { new Range(range.To, To) };
         }
-
     }
 }
