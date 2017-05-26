@@ -139,7 +139,6 @@ namespace Sort
                         j--;
                     }
                     listStrings[j + 1] = temp;
-
                 }
                 else
                 {
