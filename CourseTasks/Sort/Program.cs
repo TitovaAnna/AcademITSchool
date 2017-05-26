@@ -32,9 +32,9 @@ namespace Sort
 
             if (!increase && !decrease)
             {
-                    Console.WriteLine("Неправильно задан тип сортировки");
-                    Console.ReadKey();
-                    return;
+                Console.WriteLine("Неправильно задан тип сортировки");
+                Console.ReadKey();
+                return;
             }
 
             if (numbers)
@@ -50,23 +50,10 @@ namespace Sort
                     {
                         Sort(listNumbers, false);
                     }
-                    else
-                    {
-                        Console.WriteLine("Неправильно задан тип сортировки");
-                        Console.ReadKey();
-                        return;
-                    }
-                    for (int i = 0; i < listNumbers.Count; i++)
-                    {
-                        Console.WriteLine(listNumbers[i]);
-                        Console.ReadKey();
-                    }
                     WriteFile(args[1], listNumbers.ConvertAll<string>(Convert.ToString));
-
                 }
                 catch (Exception)
                 {
-
                     Console.WriteLine("Невозможно преобразовать данные в число");
                     Console.ReadKey();
                 }
@@ -81,6 +68,7 @@ namespace Sort
                 {
                     Sort(listStrings, false);
                 }
+                WriteFile(args[1], listStrings);
             }
             else
             {
@@ -88,7 +76,6 @@ namespace Sort
                 Console.ReadKey();
                 return;
             }
-            WriteFile(args[1], listStrings);
         }
 
         public static List<string> ReadFile(string fileNameIn)
@@ -144,7 +131,6 @@ namespace Sort
             {
                 string temp = listStrings[i];
                 int j = i - 1;
-
                 if (increase)
                 {
                     while ((j >= 0) && (listStrings[j].CompareTo(temp) > 0))
@@ -153,15 +139,17 @@ namespace Sort
                         j--;
                     }
                     listStrings[j + 1] = temp;
-                    return;
-                }
 
-                while ((j >= 0) && (listStrings[j].CompareTo(temp) < 0))
-                {
-                    listStrings[j + 1] = listStrings[j];
-                    j--;
                 }
-                listStrings[j + 1] = temp;
+                else
+                {
+                    while ((j >= 0) && (listStrings[j].CompareTo(temp) < 0))
+                    {
+                        listStrings[j + 1] = listStrings[j];
+                        j--;
+                    }
+                    listStrings[j + 1] = temp;
+                }
             }
         }
 
