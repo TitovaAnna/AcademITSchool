@@ -42,17 +42,10 @@ namespace Sort
                 try
                 {
                     List<int> listNumbers = listStrings.ConvertAll(new Converter<string, int>(Convert.ToInt32));
-                    if (increase)
-                    {
-                        Sort(listNumbers, true);
-                    }
-                    else if (decrease)
-                    {
-                        Sort(listNumbers, false);
-                    }
+                    Sort(listNumbers, increase);
                     WriteFile(args[1], listNumbers.ConvertAll<string>(Convert.ToString));
                 }
-                catch (Exception)
+                catch (FormatException)
                 {
                     Console.WriteLine("Невозможно преобразовать данные в число");
                     Console.ReadKey();
@@ -60,21 +53,13 @@ namespace Sort
             }
             else if (strings)
             {
-                if (increase)
-                {
-                    Sort(listStrings, true);
-                }
-                else if (decrease)
-                {
-                    Sort(listStrings, false);
-                }
+                Sort(listStrings, increase);
                 WriteFile(args[1], listStrings);
             }
             else
             {
                 Console.WriteLine("Неправильно задан тип данных");
                 Console.ReadKey();
-                return;
             }
         }
 
