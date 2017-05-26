@@ -16,27 +16,39 @@ namespace Sort
                 return;
             }
 
-            List<string> arrayLine = ReadFile(args[0]);
+            List<string> listStrings = ReadFile(args[0]);
 
-            if (arrayLine == null)
+            if (listStrings == null)
             {
                 Console.WriteLine("Ошибка чтения файла");
                 Console.ReadKey();
                 return;
             }
 
-            if (args[2].Equals("-i"))
+            bool numbers = args[2].Equals("-i");
+            bool strings = args[2].Equals("-s");
+            bool increase = args[3].Equals("-a");
+            bool decrease = args[3].Equals("-d");
+
+            if (!increase && !decrease)
+            {
+                    Console.WriteLine("Неправильно задан тип сортировки");
+                    Console.ReadKey();
+                    return;
+            }
+
+            if (numbers)
             {
                 try
                 {
-                    List<int> arrayDigital = arrayLine.ConvertAll(new Converter<string, int>(Convert.ToInt32));
-                    if (args[3].Equals("-a"))
+                    List<int> listNumbers = listStrings.ConvertAll(new Converter<string, int>(Convert.ToInt32));
+                    if (increase)
                     {
-                        arrayLine = Sort(arrayDigital, true);
+                        Sort(listNumbers, true);
                     }
-                    else if (args[3].Equals("-d"))
+                    else if (decrease)
                     {
-                        arrayLine = Sort(arrayDigital, false);
+                        Sort(listNumbers, false);
                     }
                     else
                     {
@@ -44,30 +56,31 @@ namespace Sort
                         Console.ReadKey();
                         return;
                     }
+                    for (int i = 0; i < listNumbers.Count; i++)
+                    {
+                        Console.WriteLine(listNumbers[i]);
+                        Console.ReadKey();
+                    }
+                    WriteFile(args[1], listNumbers.ConvertAll<string>(Convert.ToString));
+
                 }
                 catch (Exception)
                 {
+
                     Console.WriteLine("Невозможно преобразовать данные в число");
                     Console.ReadKey();
                 }
             }
-            else if (args[2].Equals("-s"))
+            else if (strings)
             {
-                if (args[3].Equals("-a"))
+                if (increase)
                 {
-                    Sort(arrayLine, true);
+                    Sort(listStrings, true);
                 }
-                else if (args[3].Equals("-d"))
+                else if (decrease)
                 {
-                    Sort(arrayLine, false);
+                    Sort(listStrings, false);
                 }
-                else
-                {
-                    Console.WriteLine("Неправильно задан тип сортировки");
-                    Console.ReadKey();
-                    return;
-                }
-
             }
             else
             {
@@ -75,8 +88,7 @@ namespace Sort
                 Console.ReadKey();
                 return;
             }
-
-            WriteFile(args[1], arrayLine);
+            WriteFile(args[1], listStrings);
         }
 
         public static List<string> ReadFile(string fileNameIn)
@@ -84,88 +96,80 @@ namespace Sort
             try
             {
                 List<string> arrayLine = new List<string>();
-
                 using (StreamReader reader = new StreamReader(fileNameIn, Encoding.Default))
                 {
-
                     while (!reader.EndOfStream)
                     {
                         arrayLine.Add(reader.ReadLine());
-
                     }
                 }
-
                 return arrayLine;
             }
-
             catch (Exception)
             {
                 return null;
             }
         }
-        public static List<string> Sort(List<int> arrayDigital, bool increase)
+
+        public static void Sort(List<int> listNumbers, bool increase)
         {
-            for (int i = 1; i < arrayDigital.Count; i++)
+            for (int i = 1; i < listNumbers.Count; i++)
             {
-                int temp = arrayDigital[i];
+                int temp = listNumbers[i];
                 int j = i - 1;
                 if (increase)
                 {
-                    while ((j >= 0) && (arrayDigital[j] > temp))
+                    while ((j >= 0) && (listNumbers[j] > temp))
                     {
-                        arrayDigital[j + 1] = arrayDigital[j];
+                        listNumbers[j + 1] = listNumbers[j];
                         j--;
                     }
-                    arrayDigital[j + 1] = temp;
-
+                    listNumbers[j + 1] = temp;
                 }
                 else
                 {
-                    while ((j >= 0) && (arrayDigital[j] < temp))
+                    while ((j >= 0) && (listNumbers[j] < temp))
                     {
-                        arrayDigital[j + 1] = arrayDigital[j];
+                        listNumbers[j + 1] = listNumbers[j];
                         j--;
                     }
-                    arrayDigital[j + 1] = temp;
+                    listNumbers[j + 1] = temp;
                 }
             }
-            return arrayDigital.ConvertAll(new Converter<int, string>(Convert.ToString));
         }
 
-        public static void Sort(List<string> arrayLine, bool increase)
+        public static void Sort(List<string> listStrings, bool increase)
         {
-            for (int i = 1; i < arrayLine.Count; i++)
+            for (int i = 1; i < listStrings.Count; i++)
             {
-                string temp = arrayLine[i];
+                string temp = listStrings[i];
                 int j = i - 1;
 
                 if (increase)
                 {
-                    while ((j >= 0) && (arrayLine[j].CompareTo(temp) > 0))
+                    while ((j >= 0) && (listStrings[j].CompareTo(temp) > 0))
                     {
-                        arrayLine[j + 1] = arrayLine[j];
+                        listStrings[j + 1] = listStrings[j];
                         j--;
                     }
-                    arrayLine[j + 1] = temp;
+                    listStrings[j + 1] = temp;
                     return;
                 }
 
-                while ((j >= 0) && (arrayLine[j].CompareTo(temp) < 0))
+                while ((j >= 0) && (listStrings[j].CompareTo(temp) < 0))
                 {
-                    arrayLine[j + 1] = arrayLine[j];
+                    listStrings[j + 1] = listStrings[j];
                     j--;
                 }
-                arrayLine[j + 1] = temp;
-
+                listStrings[j + 1] = temp;
             }
-
         }
 
-        public static void WriteFile(string fileNameOut, List<string> arrayLine)
+        public static void WriteFile(string fileNameOut, List<string> listStrings)
         {
             using (StreamWriter writer = new StreamWriter(fileNameOut))
             {
-                foreach (string s in arrayLine)
+                foreach (string s in listStrings)
                 {
                     writer.WriteLine(s);
                 }
