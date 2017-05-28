@@ -23,14 +23,15 @@ namespace Sort
             }
             catch (FileNotFoundException)
             {
-                Console.WriteLine("Файл не найден");
+                Console.WriteLine("Файл {0} не найден", args[0]);
                 Console.ReadKey();
                 return;
             }
             catch (Exception)
             {
-                Console.WriteLine("Ошибка чтения файла");
+                Console.WriteLine("Ошибка чтения файла {0}", args[0]);
                 Console.ReadKey();
+                return;
             }
 
             bool numbers = args[2].Equals("-i");
@@ -56,6 +57,7 @@ namespace Sort
                 {
                     Console.WriteLine("Невозможно преобразовать данные в число");
                     Console.ReadKey();
+                    return;
                 }
                 Sort(listNumbers, increase);
                 listStrings = listNumbers.ConvertAll(Convert.ToString);
@@ -70,13 +72,14 @@ namespace Sort
                 Console.ReadKey();
                 return;
             }
+
             try
             {
                 WriteFile(args[1], listStrings);
             }
             catch (Exception)
             {
-                Console.WriteLine("Ошибка записи файла");
+                Console.WriteLine("Ошибка записи файла {0}", args[1]);
                 Console.ReadKey();
             }
         }
@@ -156,7 +159,6 @@ namespace Sort
                 {
                     writer.WriteLine(s);
                 }
-
             }
         }
     }
