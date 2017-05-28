@@ -11,7 +11,11 @@ namespace Sort
         {
             if (args.Length < 4)
             {
-                Console.WriteLine("Не хватает аргументов командной строки");
+                Console.WriteLine("Необходимо ввести аргументы:" + Environment.NewLine +
+                   "имя входного файла" + Environment.NewLine +
+                   "имя выходного файла" + Environment.NewLine +
+                   "тип данных: \"-i\"-числа,\"-s\"-строки" + Environment.NewLine +
+                   "вид сортировки: \"-a\"-по возрастанию,\"-d\"-по убыванию");
                 Console.ReadKey();
                 return;
             }
@@ -41,7 +45,7 @@ namespace Sort
 
             if (!increase && !decrease)
             {
-                Console.WriteLine("Неправильно задан тип сортировки");
+                Console.WriteLine("Тип сортировки задается аргументами \"-a\"-по возрастанию,\"-d\"-по убыванию");
                 Console.ReadKey();
                 return;
             }
@@ -68,7 +72,7 @@ namespace Sort
             }
             else
             {
-                Console.WriteLine("Неправильно задан тип данных");
+                Console.WriteLine("Тип данных задается аргументами:\"-i\"-числа,\"-s\"-строки");
                 Console.ReadKey();
                 return;
             }
