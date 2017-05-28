@@ -16,13 +16,21 @@ namespace Sort
                 return;
             }
 
-            List<string> listStrings = ReadFile(args[0]);
-
-            if (listStrings == null)
+            List<string> listStrings = new List<string>();
+            try
+            {
+                listStrings = ReadFile(args[0]);
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("Файл не найден");
+                Console.ReadKey();
+                return;
+            }
+            catch (Exception)
             {
                 Console.WriteLine("Ошибка чтения файла");
                 Console.ReadKey();
-                return;
             }
 
             bool numbers = args[2].Equals("-i");
@@ -39,48 +47,51 @@ namespace Sort
 
             if (numbers)
             {
+                List<int> listNumbers = new List<int>();
                 try
                 {
-                    List<int> listNumbers = listStrings.ConvertAll(new Converter<string, int>(Convert.ToInt32));
-                    Sort(listNumbers, increase);
-                    WriteFile(args[1], listNumbers.ConvertAll<string>(Convert.ToString));
+                    listNumbers = listStrings.ConvertAll(new Converter<string, int>(Convert.ToInt32));
                 }
                 catch (FormatException)
                 {
                     Console.WriteLine("Невозможно преобразовать данные в число");
                     Console.ReadKey();
                 }
+                Sort(listNumbers, increase);
+                listStrings = listNumbers.ConvertAll(Convert.ToString);
             }
             else if (strings)
             {
                 Sort(listStrings, increase);
-                WriteFile(args[1], listStrings);
             }
             else
             {
                 Console.WriteLine("Неправильно задан тип данных");
+                Console.ReadKey();
+                return;
+            }
+            try
+            {
+                WriteFile(args[1], listStrings);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Ошибка записи файла");
                 Console.ReadKey();
             }
         }
 
         public static List<string> ReadFile(string fileNameIn)
         {
-            try
+            List<string> arrayLine = new List<string>();
+            using (StreamReader reader = new StreamReader(fileNameIn, Encoding.Default))
             {
-                List<string> arrayLine = new List<string>();
-                using (StreamReader reader = new StreamReader(fileNameIn, Encoding.Default))
+                while (!reader.EndOfStream)
                 {
-                    while (!reader.EndOfStream)
-                    {
-                        arrayLine.Add(reader.ReadLine());
-                    }
+                    arrayLine.Add(reader.ReadLine());
                 }
-                return arrayLine;
             }
-            catch (Exception)
-            {
-                return null;
-            }
+            return arrayLine;
         }
 
         public static void Sort(List<int> listNumbers, bool increase)
@@ -149,6 +160,5 @@ namespace Sort
             }
         }
     }
-
 }
 
