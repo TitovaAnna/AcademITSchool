@@ -6,32 +6,54 @@ using System.Threading.Tasks;
 
 namespace Shapes
 {
-    class Circle : Shape
+    class Circle : IShape
     {
-        private double r;
+        private double radius;
 
-        public Circle(double r)
+        public Circle(double radius)
         {
-            this.r = r;
-        }
-      
-        public override double getWidth()
-        {
-            return 2 * r;
-        }
-        public override double getHeight()
-        {
-            return 2 * r;
+            this.radius = radius;
         }
 
-        public override double getArea()
+        public double GetWidth()
         {
-            return Math.PI * Math.Pow(r, 2);
+            return 2 * radius;
+        }
+        public double GetHeight()
+        {
+            return 2 * radius;
         }
 
-        public override double getPerimeter()
+        public double GetArea()
         {
-            return 2 * Math.PI * r;
+            return Math.PI * Math.Pow(radius, 2);
+        }
+
+        public double GetPerimeter()
+        {
+            return 2 * Math.PI * radius;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Окружность с радиусом:{0}", radius);
+        }
+        public override int GetHashCode()
+        {
+            return (int)radius;
+        }
+        public override bool Equals(object o)
+        {
+            if (ReferenceEquals(o, this))
+            {
+                return true;
+            }
+            if (ReferenceEquals(o, null) || o.GetType() != this.GetType())
+            {
+                return false;
+            }
+            Circle circle = (Circle)o;
+            return radius == circle.radius;
         }
     }
 }

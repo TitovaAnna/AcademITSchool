@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shapes
 {
-    class Rectangle : Shape
+    class Rectangle : IShape
     {
         private double length;
         private double width;
@@ -17,23 +17,49 @@ namespace Shapes
             this.width = width;
         }
 
-        public override double getWidth()
+        public double GetWidth()
         {
             return length;
         }
-        public override double getHeight()
+        public double GetHeight()
         {
             return width;
         }
 
-        public override double getArea()
+        public double GetArea()
         {
             return width * length;
         }
 
-        public override double getPerimeter()
+        public double GetPerimeter()
         {
             return 2 * (width + length);
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Прямоугольник со сторонами:{0},{1}", length, width);
+        }
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            int prime = 17;
+            hash = prime * hash + (int)width;
+            hash = prime * hash + (int)length;
+            return hash;
+        }
+        public override bool Equals(object o)
+        {
+            if (ReferenceEquals(o, this))
+            {
+                return true;
+            }
+            if (ReferenceEquals(o, null) || o.GetType() != this.GetType())
+            {
+                return false;
+            }
+            Rectangle rectangle = (Rectangle)o;
+            return (length == rectangle.length) && (width == rectangle.width);
         }
     }
 }
