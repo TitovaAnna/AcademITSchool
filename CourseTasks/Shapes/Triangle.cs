@@ -55,12 +55,12 @@ namespace Shapes
         public override int GetHashCode()
         {
             int hash = 1;
-            hash = CalculationHash(x1, hash);
-            hash = CalculationHash(x2, hash);
-            hash = CalculationHash(x3, hash);
-            hash = CalculationHash(y1, hash);
-            hash = CalculationHash(y2, hash);
-            hash = CalculationHash(y3, hash);
+            hash = CalculateHash(x1, hash);
+            hash = CalculateHash(x2, hash);
+            hash = CalculateHash(x3, hash);
+            hash = CalculateHash(y1, hash);
+            hash = CalculateHash(y2, hash);
+            hash = CalculateHash(y3, hash);
             return hash;
         }
         public override bool Equals(object o)
@@ -79,7 +79,7 @@ namespace Shapes
             return x1 == triangle.x1 && x2 == triangle.x2 && x3 == triangle.x3 &&
                    y1 == triangle.y1 && y2 == triangle.y2 && y3 == triangle.y3;
         }
-        private int CalculationHash(double x, int hash)
+        private int CalculateHash(double x, int hash)
         {
             int prime = 17;
             return prime * hash + (int)x;
