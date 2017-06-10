@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CourseTasks
+namespace Vector
 {
     class Program
     {
@@ -42,7 +42,7 @@ namespace CourseTasks
 
             Console.WriteLine(Vector.GetScalarMultiplication(vector1, vector2).ToString());
             Console.ReadKey();
-            
-            }
+
         }
     }
+}
