@@ -12,6 +12,7 @@ namespace Shapes
             IShape square3 = new Square(4);
             IShape square2 = new Square(3);
             IShape square1 = new Square(2);
+            IShape square4 = new Square(7);
             IShape circle = new Circle(5);
             IShape rectangle = new Rectangle(4, 3);
             IShape circle2 = new Circle(3);
@@ -21,7 +22,7 @@ namespace Shapes
             Console.WriteLine("Максимальная площадь у фигуры {0}", GetShapeAreaMax(triangle, square, circle).ToString());
             Console.ReadKey();
 
-            IShape shapePerimeterMax = GetShapePerimeterSecond(square1, square2, square3, square);
+            IShape shapePerimeterMax = GetShapePerimeterSecond(square1, square2, square3, square,square4);
             if (shapePerimeterMax == null)
             {
                 Console.WriteLine("Задано меньше двух фигур");
