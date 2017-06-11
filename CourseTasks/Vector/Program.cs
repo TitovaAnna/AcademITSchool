@@ -10,8 +10,9 @@ namespace Vector
     {
         static void Main(string[] args)
         {
-            Vector vector1 = new Vector(new double[] { 2, 4 });
+            Vector vector1 = new Vector(4, new double[] { 2, 4 });
             Vector vector2 = new Vector(new double[] { 3, 4, 1, 6, 6 });
+
             try
             {
                 Vector vector3 = new Vector(-3);
@@ -22,15 +23,21 @@ namespace Vector
                 Console.ReadKey();
             }
 
+            Vector vector4 = new Vector(vector1);
+
             Console.WriteLine(vector1.ToString());
             Console.WriteLine(vector2.ToString());
+            Console.WriteLine(vector4.ToString());
             Console.ReadKey();
 
-            vector2.AddVector(vector1);
+            Console.WriteLine((new Vector(2)).ToString());
+            Console.ReadKey();
+
+            vector2.Add(vector1);
             Console.WriteLine(vector2.ToString());
             Console.ReadKey();
 
-            vector2.SubtractVector(vector1);
+            vector2.Subtract(vector1);
             Console.WriteLine(vector2.ToString());
             Console.ReadKey();
 
@@ -41,6 +48,12 @@ namespace Vector
             Console.ReadKey();
 
             Console.WriteLine(Vector.GetScalarMultiplication(vector1, vector2).ToString());
+            Console.WriteLine(vector1.ToString());
+            Console.WriteLine(vector2.ToString());
+            Console.ReadKey();
+
+            vector1.Inverse();
+            Console.WriteLine(vector1.ToString());
             Console.ReadKey();
 
         }
