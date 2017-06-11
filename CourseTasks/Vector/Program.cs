@@ -10,8 +10,8 @@ namespace Vector
     {
         static void Main(string[] args)
         {
-            Vector vector1 = new Vector(4, new double[] { 2, 4 });
-            Vector vector2 = new Vector(new double[] { 3, 4, 1, 6, 6 });
+            Vector vector1 = new Vector(2, new double[] { 2, 4, 7, 8 });
+            Vector vector2 = new Vector(new double[] { 3, 4 });
 
             try
             {
@@ -33,7 +33,7 @@ namespace Vector
             Console.WriteLine((new Vector(2)).ToString());
             Console.ReadKey();
 
-            vector2.Add(vector1);
+            //  vector2.Add(vector1);
             Console.WriteLine(vector2.ToString());
             Console.ReadKey();
 
