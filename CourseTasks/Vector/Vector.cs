@@ -21,9 +21,7 @@ namespace Vector
 
         public Vector(Vector vector)
         {
-            int length = vector.components.Length;
-            components = new double[length];
-            Array.Copy(vector.components, components, length);
+            components = (new Vector(vector.components)).components;
         }
 
         public Vector(double[] components)
@@ -35,21 +33,15 @@ namespace Vector
 
         public Vector(int n, double[] components)
         {
+
             this.components = new double[n];
             int length = components.Length;
+            int min = Math.Min(length, n);
             if (n <= 0)
             {
                 throw new IllegalArgumentException("Размерность вектора должна быть больше 0");
             }
-            if (n < length)
-            {
-                Array.Copy(components, this.components, n);
-            }
-            else
-            {
-                Array.Copy(components, this.components, length);
-            }
-
+            Array.Copy(components, this.components, min);
         }
 
         public int GetSize()
@@ -115,11 +107,11 @@ namespace Vector
             int lengthVector = vector.components.Length;
             int length = components.Length;
 
-            if (length > lengthVector)
+            if (length >= lengthVector)
             {
                 for (int i = 0; i < lengthVector; i++)
                 {
-                    components[i] = components[i] + vector.components[i];
+                    components[i] += vector.components[i];
                 }
             }
             else
@@ -127,7 +119,7 @@ namespace Vector
                 Array.Resize(ref components, lengthVector);
                 for (int i = 0; i < lengthVector; i++)
                 {
-                    components[i] = components[i] + vector.components[i];
+                    components[i] += vector.components[i];
                 }
             }
         }
@@ -136,11 +128,11 @@ namespace Vector
             int lengthVector = vector.components.Length;
             int length = components.Length;
 
-            if (length > lengthVector)
+            if (length >= lengthVector)
             {
                 for (int i = 0; i < lengthVector; i++)
                 {
-                    components[i] = components[i] - vector.components[i];
+                    components[i] -= vector.components[i];
                 }
             }
             else
@@ -148,7 +140,7 @@ namespace Vector
                 Array.Resize(ref components, lengthVector);
                 for (int i = 0; i < lengthVector; i++)
                 {
-                    components[i] = components[i] - vector.components[i];
+                    components[i] -= vector.components[i];
                 }
             }
         }
