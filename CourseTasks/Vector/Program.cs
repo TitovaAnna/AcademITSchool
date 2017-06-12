@@ -10,8 +10,8 @@ namespace Vector
     {
         static void Main(string[] args)
         {
-            Vector vector1 = new Vector(4, new double[] { 2, 4, 7, 8 });
-            Vector vector2 = new Vector(new double[] { 3, 4 });
+            Vector vector1 = new Vector(3, new double[] { 2, 4, 7 });
+            Vector vector2 = new Vector(new double[] { 3, 4, 4, 2 });
 
             try
             {

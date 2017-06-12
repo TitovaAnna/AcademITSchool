@@ -19,9 +19,8 @@ namespace Vector
             components = new double[n];
         }
 
-        public Vector(Vector vector)
+        public Vector(Vector vector) : this(vector.components)
         {
-            components = (new Vector(vector.components)).components;
         }
 
         public Vector(double[] components)
@@ -33,14 +32,13 @@ namespace Vector
 
         public Vector(int n, double[] components)
         {
-
-            this.components = new double[n];
-            int length = components.Length;
-            int min = Math.Min(length, n);
             if (n <= 0)
             {
                 throw new IllegalArgumentException("Размерность вектора должна быть больше 0");
             }
+            this.components = new double[n];
+            int length = components.Length;
+            int min = Math.Min(length, n);
             Array.Copy(components, this.components, min);
         }
 
@@ -107,42 +105,30 @@ namespace Vector
             int lengthVector = vector.components.Length;
             int length = components.Length;
 
-            if (length >= lengthVector)
-            {
-                for (int i = 0; i < lengthVector; i++)
-                {
-                    components[i] += vector.components[i];
-                }
-            }
-            else
+            if (length < lengthVector)
             {
                 Array.Resize(ref components, lengthVector);
-                for (int i = 0; i < lengthVector; i++)
-                {
-                    components[i] += vector.components[i];
-                }
+            }
+            for (int i = 0; i < lengthVector; i++)
+            {
+                components[i] += vector.components[i];
             }
         }
+
+
         public void Subtract(Vector vector)
         {
             int lengthVector = vector.components.Length;
             int length = components.Length;
-
-            if (length >= lengthVector)
-            {
-                for (int i = 0; i < lengthVector; i++)
-                {
-                    components[i] -= vector.components[i];
-                }
-            }
-            else
+            if (length < lengthVector)
             {
                 Array.Resize(ref components, lengthVector);
-                for (int i = 0; i < lengthVector; i++)
-                {
-                    components[i] -= vector.components[i];
-                }
             }
+            for (int i = 0; i < lengthVector; i++)
+            {
+                components[i] -= vector.components[i];
+            }
+
         }
 
         public void MultiplyScalar(double scalar)
