@@ -10,17 +10,32 @@ namespace Matrix
     {
         static void Main(string[] args)
         {
-            double[,] arrayMultipy1 = new double[3, 2] { { 4, 7 }, { 6, 9 }, { 1, 4 } };
+            double[,] arrayMultipy1 = new double[1, 2] { { 4, 7 } };
             Matrix matrixMultiply1 = new Matrix(arrayMultipy1);
+
+            double[,] arrayAdd1 = new double[2, 3] { { 4, 7, 1 }, { 6, 9, 5 } };
+            Matrix matrixAdd1 = new Matrix(arrayAdd1);
+
+
+            double[,] arrayAdd2 = new double[2, 3] { { 4, 7, 1 }, { 6, 9, 5 } };
+            Matrix matrixAdd2 = new Matrix(arrayAdd2);
+
+            matrixAdd1.Add(matrixAdd2);
+            Console.WriteLine(matrixAdd1.ToString());
+            Console.ReadKey();
+
+            Console.WriteLine(matrixAdd1.MultiplyVector(new Vector.Vector(new double[] { 2, 3, 6 })).ToString());
+            Console.ReadKey();
 
             try
             {
-                Console.WriteLine(matrixMultiply1.SetRow(new Vector.Vector(new double[] { 2, 3 }), 3).ToString());
+                matrixMultiply1.SetRow(new Vector.Vector(new double[] { 2, 3, 6 }), 0);
+                Console.WriteLine(matrixMultiply1.ToString());
                 Console.ReadKey();
             }
             catch (ArgumentOutOfRangeException)
             {
-                Console.WriteLine("Индекс не может быть больше {0}", matrixMultiply1.GetNumberRows());
+                Console.WriteLine("Индекс не может быть больше {0}", matrixMultiply1.GetNumberRows() - 1);
                 Console.ReadKey();
             }
             catch (ArgumentException)
@@ -30,8 +45,20 @@ namespace Matrix
             }
 
 
-            double[,] arrayMultiply2 = new double[2, 3] { { 4, 7, 3 }, { 3, 6, 9 } };
+            double[,] arrayMultiply2 = new double[2, 3] { { 4, 7, 1 }, { 6, 9, 5 } };
             Matrix matrixMultiply2 = new Matrix(arrayMultiply2);
+
+            try
+            {
+                matrixMultiply1.Add(matrixMultiply2);
+                Console.WriteLine(matrixMultiply1.ToString());
+                Console.ReadKey();
+            }
+            catch (ArgumentException)
+            {
+                Console.WriteLine("Матрицы не совпадают по размеру");
+                Console.ReadKey();
+            }
 
             Console.WriteLine(matrixMultiply1.Multiply(matrixMultiply2).ToString());
             Console.ReadKey();
@@ -84,7 +111,7 @@ namespace Matrix
                 Console.WriteLine("{0}-{1}", matrix1.GetNumberRows(), matrix1.GetNumberColumns());
                 Console.ReadKey();
             }
-            catch (IllegalArgumentException)
+            catch (ArgumentException)
             {
                 Console.WriteLine("Индекс должен быть равен 0 или 1");
                 Console.ReadKey();
@@ -109,7 +136,7 @@ namespace Matrix
                 Console.WriteLine(vector.ToString());
                 Console.ReadKey();
             }
-            catch (IllegalArgumentException)
+            catch (ArgumentException)
             {
                 Console.WriteLine("Индекс не может быть больше длины вектора");
                 Console.ReadKey();
