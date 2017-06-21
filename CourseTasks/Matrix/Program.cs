@@ -10,12 +10,29 @@ namespace Matrix
     {
         static void Main(string[] args)
         {
-
             double[,] arrayMultipy1 = new double[3, 2] { { 4, 7 }, { 6, 9 }, { 1, 4 } };
             Matrix matrixMultiply1 = new Matrix(arrayMultipy1);
 
+            try
+            {
+                Console.WriteLine(matrixMultiply1.SetRow(new Vector.Vector(new double[] { 2, 3 }), 3).ToString());
+                Console.ReadKey();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("Индекс не может быть больше {0}", matrixMultiply1.GetNumberRows());
+                Console.ReadKey();
+            }
+            catch (ArgumentException)
+            {
+                Console.WriteLine("Вектор должен совпадать по размеру с длиной строки матрицы", matrixMultiply1.GetNumberRows());
+                Console.ReadKey();
+            }
+
+
             double[,] arrayMultiply2 = new double[2, 3] { { 4, 7, 3 }, { 3, 6, 9 } };
             Matrix matrixMultiply2 = new Matrix(arrayMultiply2);
+
             Console.WriteLine(matrixMultiply1.Multiply(matrixMultiply2).ToString());
             Console.ReadKey();
 
@@ -85,7 +102,7 @@ namespace Matrix
                 Console.WriteLine("размерность матриц должна быть одинаковая");
                 Console.ReadKey();
             }
-            
+
             try
             {
                 Vector.Vector vector = matrix1.GetColumn(1);
