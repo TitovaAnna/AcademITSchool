@@ -116,11 +116,6 @@ namespace Matrix
             {
                 return true;
             }
-
-            if ((object)matrix1 == null)
-            {
-                return false;
-            }
             return Equals(matrix1, matrix2);
         }
 
@@ -129,11 +124,6 @@ namespace Matrix
             if (((object)matrix1 == null) && ((object)matrix2 == null))
             {
                 return false;
-            }
-
-            if ((object)matrix1 == null)
-            {
-                return true;
             }
             return !Equals(matrix1, matrix2);
         }
