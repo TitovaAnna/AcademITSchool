@@ -339,6 +339,7 @@ namespace Matrix
             int lengthRow = rows[0].GetSize();
             if ((length != matrix.GetNumberRows()) || (lengthRow != matrix.GetNumberColumns()))
             {
+
                 throw new ArgumentException("Размерность матриц должны быть одинаковая");
             }
             for (int i = 0; i < length; i++)

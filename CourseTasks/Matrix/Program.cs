@@ -11,7 +11,7 @@ namespace Matrix
         static void Main(string[] args)
         {
 
-            double[,] arrayMultipy1 = { { 4, 7, 1 } };
+            double[,] arrayMultipy1 = { { 4, 7 } };
             Matrix matrixMultiply1 = new Matrix(arrayMultipy1);
 
             double[,] arrayAdd1 = { { 4, 7 } };
@@ -31,15 +31,21 @@ namespace Matrix
                 Console.WriteLine("Индекс слишком большой");
             }
 
-            double[,] arrayAdd2 = { { 4, 7, 1 }, { 6, 9, 5 } };
+            double[,] arrayAdd2 = { { 4, 7} };
             Matrix matrixAdd2 = new Matrix(arrayAdd2);
 
             matrixAdd1.Add(matrixAdd2);
             Console.WriteLine(matrixAdd1.ToString());
             Console.ReadKey();
-
-            Console.WriteLine(matrixAdd1.MultiplyVector(new Vector.Vector(new double[] { 2, 3, 6 })).ToString());
-            Console.ReadKey();
+            try
+            {
+                Console.WriteLine(matrixAdd1.MultiplyVector(new Vector.Vector(new double[] { 2, 3, 6 })).ToString());
+                Console.ReadKey();
+            }
+            catch
+            {
+                Console.WriteLine("Размерность вектора должна совпадать с количеством столбцов матрицы");
+            }
 
             try
             {
