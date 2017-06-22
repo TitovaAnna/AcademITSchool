@@ -112,26 +112,38 @@ namespace Matrix
 
         public static bool operator ==(Matrix matrix1, Matrix matrix2)
         {
-            if (ReferenceEquals(matrix1, matrix2))
+            return Equals(matrix1, matrix2);
+        }
+
+        public static bool operator !=(Matrix matrix1, Matrix matrix2)
+        {
+            return !Equals(matrix1, matrix2);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(obj, this))
             {
                 return true;
             }
-            if (ReferenceEquals(matrix1, null) || (ReferenceEquals(matrix2, null) || matrix1.GetType() != matrix2.GetType()))
+            if (ReferenceEquals(obj, null) || obj.GetType() != GetType())
             {
                 return false;
             }
 
-            if ((matrix1.GetNumberColumns() != matrix2.GetNumberColumns()) || (matrix1.GetNumberRows() != matrix2.GetNumberRows()))
+            Matrix matrix = (Matrix)obj;
+
+            if ((matrix.GetNumberColumns() != GetNumberColumns()) || (matrix.GetNumberRows() != GetNumberRows()))
             {
                 return false;
             }
 
-            for (int i = 0; i < matrix1.GetNumberRows(); i++)
+            for (int i = 0; i < matrix.GetNumberRows(); i++)
             {
-                for (int j = 0; j < matrix1.GetNumberColumns(); j++)
+                for (int j = 0; j < matrix.GetNumberColumns(); j++)
                 {
 
-                    if (matrix1[i, j] != matrix2[i, j])
+                    if (matrix[i, j] != this[i, j])
                     {
                         return false;
                     }
@@ -140,12 +152,21 @@ namespace Matrix
             return true;
         }
 
-        public static bool operator !=(Matrix matrix1, Matrix matrix2)
+        public override int GetHashCode()
         {
-            return !(matrix1 == matrix2);
+            int prime = 17;
+            int hash = 0;
+            for (int i = 0; i < GetNumberRows(); i++)
+            {
+                for (int j = 0; j < GetNumberColumns(); j++)
+                {
+                    {
+                        hash = prime * hash + (int)this[i, j];
+                    }
+                }
+            }
+            return hash;
         }
-
-
 
         public override string ToString()
         {

@@ -11,13 +11,13 @@ namespace Matrix
         static void Main(string[] args)
         {
 
-            double[,] arrayMultipy1 = { { 4, 7 } };
+            double[,] arrayMultipy1 = { { 4, 7, 1 } };
             Matrix matrixMultiply1 = new Matrix(arrayMultipy1);
 
-            double[,] arrayAdd1 = { { 4, 7} };
+            double[,] arrayAdd1 = { { 4, 7 } };
             Matrix matrixAdd1 = new Matrix(arrayAdd1);
 
-            Console.WriteLine(matrixAdd1-matrixMultiply1);
+            Console.WriteLine(matrixAdd1 == matrixMultiply1);
             Console.ReadKey();
 
             try
