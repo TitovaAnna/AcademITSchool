@@ -84,29 +84,12 @@ namespace Vector
 
         public static bool operator ==(Vector vector1, Vector vector2)
         {
-            if (((object)vector1 == null) && ((object)vector2 == null))
-            {
-                return true;
-            }
-
-            if ((object)vector1 == null)
-            {
-                return false;
-            }
-            return vector1.Equals(vector2);
+            return Equals(vector1, vector2);
         }
 
         public static bool operator !=(Vector vector1, Vector vector2)
         {
-            if (((object)vector1 == null) && ((object)vector2 == null))
-            {
-                return false;
-            }
-            if ((object)vector1 == null)
-            {
-                return true;
-            }
-            return !vector1.Equals(vector2);
+            return !Equals(vector1, vector2);
         }
 
         public override string ToString()

@@ -10,7 +10,6 @@ namespace Matrix
     {
         static void Main(string[] args)
         {
-
             double[,] arrayMultipy1 = { { 4, 7 } };
             Matrix matrixMultiply1 = new Matrix(arrayMultipy1);
 
