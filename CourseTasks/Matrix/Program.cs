@@ -10,14 +10,28 @@ namespace Matrix
     {
         static void Main(string[] args)
         {
-            double[,] arrayMultipy1 = new double[1, 2] { { 4, 7 } };
+
+            double[,] arrayMultipy1 = { { 4, 7 } };
             Matrix matrixMultiply1 = new Matrix(arrayMultipy1);
 
-            double[,] arrayAdd1 = new double[2, 3] { { 4, 7, 1 }, { 6, 9, 5 } };
+            double[,] arrayAdd1 = { { 4, 7} };
             Matrix matrixAdd1 = new Matrix(arrayAdd1);
 
+            Console.WriteLine(matrixAdd1-matrixMultiply1);
+            Console.ReadKey();
 
-            double[,] arrayAdd2 = new double[2, 3] { { 4, 7, 1 }, { 6, 9, 5 } };
+            try
+            {
+                matrixAdd1[2, 0] = 100;
+                Console.WriteLine(matrixAdd1.ToString());
+                Console.ReadKey();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("Индекс слишком большой");
+            }
+
+            double[,] arrayAdd2 = { { 4, 7, 1 }, { 6, 9, 5 } };
             Matrix matrixAdd2 = new Matrix(arrayAdd2);
 
             matrixAdd1.Add(matrixAdd2);
@@ -45,7 +59,7 @@ namespace Matrix
             }
 
 
-            double[,] arrayMultiply2 = new double[2, 3] { { 4, 7, 1 }, { 6, 9, 5 } };
+            double[,] arrayMultiply2 = { { 4, 7, 1 }, { 6, 9, 5 } };
             Matrix matrixMultiply2 = new Matrix(arrayMultiply2);
 
             try
@@ -67,7 +81,8 @@ namespace Matrix
             Console.WriteLine(matrix.ToString());
             Console.ReadKey();
 
-            double[,] array1 = new double[3, 3] { { 4, 7, 3 }, { 3, 6, 9 }, { 0, 1, 4 } };
+            double[,] array1 =
+                { { 4, 7, 3 }, { 3, 6, 9 }, { 0, 1, 4 } };
             Matrix matrix1 = new Matrix(array1);
             Console.WriteLine(matrix1.ToString());
             Console.ReadKey();

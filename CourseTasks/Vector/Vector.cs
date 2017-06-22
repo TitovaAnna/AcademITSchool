@@ -47,6 +47,51 @@ namespace Vector
             return components.Length;
         }
 
+
+        public double this[int i]
+        {
+            get
+            {
+                if (i >= this.GetSize())
+                {
+                    throw new ArgumentOutOfRangeException("Слишком большой индекс");
+                }
+                return components[i];
+            }
+            set
+            {
+                if (i >= this.GetSize())
+                {
+                    throw new ArgumentOutOfRangeException("Слишком большой индекс");
+                }
+                components[i] = value;
+            }
+        }
+
+        public static Vector operator +(Vector vector1, Vector vector2)
+        {
+            Vector vectorCopy1 = new Vector(vector1);
+            vectorCopy1.Add(vector2);
+            return vectorCopy1;
+        }
+
+        public static Vector operator -(Vector vector1, Vector vector2)
+        {
+            Vector vectorCopy1 = new Vector(vector1);
+            vectorCopy1.Subtract(vector2);
+            return vectorCopy1;
+        }
+
+        public static bool operator ==(Vector vector1, Vector vector2)
+        {
+            return vector1.Equals(vector2);
+        }
+
+        public static bool operator !=(Vector vector1, Vector vector2)
+        {
+            return !vector1.Equals(vector2);
+        }
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();

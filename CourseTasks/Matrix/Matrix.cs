@@ -67,6 +67,86 @@ namespace Matrix
         {
         }
 
+        public double this[int i, int j]
+        {
+            get
+            {
+                if (i >= this.GetNumberRows())
+                {
+                    throw new ArgumentOutOfRangeException("Индекс i больше количества строк");
+                }
+                if (j >= this.GetNumberColumns())
+                {
+                    throw new ArgumentOutOfRangeException("Индекс j больше количества столбцов");
+                }
+                return rows[i][j];
+            }
+            set
+            {
+                if (i >= this.GetNumberRows())
+                {
+                    throw new ArgumentOutOfRangeException("Индекс i больше количества строк");
+                }
+                if (j >= this.GetNumberColumns())
+                {
+                    throw new ArgumentOutOfRangeException("Индекс j больше количества столбцов");
+                }
+                rows[i][j] = value;
+            }
+        }
+
+
+        public static Matrix operator +(Matrix matrix1, Matrix matrix2)
+        {
+            Matrix matrixCopy = new Matrix(matrix1);
+            matrixCopy.Add(matrix2);
+            return matrixCopy;
+        }
+        public static Matrix operator -(Matrix matrix1, Matrix matrix2)
+        {
+            Matrix matrixCopy = new Matrix(matrix1);
+            matrixCopy.Subtract(matrix2);
+            return matrixCopy;
+        }
+
+
+        public static bool operator ==(Matrix matrix1, Matrix matrix2)
+        {
+            if (ReferenceEquals(matrix1, matrix2))
+            {
+                return true;
+            }
+            if (ReferenceEquals(matrix1, null) || (ReferenceEquals(matrix2, null) || matrix1.GetType() != matrix2.GetType()))
+            {
+                return false;
+            }
+
+            if ((matrix1.GetNumberColumns() != matrix2.GetNumberColumns()) || (matrix1.GetNumberRows() != matrix2.GetNumberRows()))
+            {
+                return false;
+            }
+
+            for (int i = 0; i < matrix1.GetNumberRows(); i++)
+            {
+                for (int j = 0; j < matrix1.GetNumberColumns(); j++)
+                {
+
+                    if (matrix1[i, j] != matrix2[i, j])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        public static bool operator !=(Matrix matrix1, Matrix matrix2)
+        {
+            return !(matrix1 == matrix2);
+        }
+
+
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -130,7 +210,7 @@ namespace Matrix
 
         public Vector.Vector GetColumn(int index)
         {
-            if (index > rows[0].GetSize())
+            if (index >= rows[0].GetSize())
             {
                 throw new ArgumentOutOfRangeException("Индекс не может быть больше длины вектора");
             }
@@ -144,7 +224,7 @@ namespace Matrix
 
         public void Transposition()
         {
-            for (int i = 0; i < rows[0].GetSize(); i++)
+            for (int i = 0; i < this.GetNumberColumns(); i++)
             {
                 rows[i] = GetColumn(i);
             }
@@ -266,11 +346,12 @@ namespace Matrix
             int countColumns = rows[0].GetSize();
             int lengthMatrix = matrix.GetNumberRows();
             int countColumnsMatrix = matrix.GetNumberColumns();
-            double[,] multiplyArray = new double[length, countColumnsMatrix];
+
             if (countColumns != lengthMatrix)
             {
                 throw new ArgumentException("Число столбцов первой матрицы должно быть равно числу строк во второй");
             }
+            double[,] multiplyArray = new double[length, countColumnsMatrix];
             for (int i = 0; i < length; i++)
             {
                 for (int j = 0; j < countColumnsMatrix; j++)
