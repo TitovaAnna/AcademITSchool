@@ -112,11 +112,29 @@ namespace Matrix
 
         public static bool operator ==(Matrix matrix1, Matrix matrix2)
         {
+            if (((object)matrix1 == null) && ((object)matrix2 == null))
+            {
+                return true;
+            }
+
+            if ((object)matrix1 == null)
+            {
+                return false;
+            }
             return Equals(matrix1, matrix2);
         }
 
         public static bool operator !=(Matrix matrix1, Matrix matrix2)
         {
+            if (((object)matrix1 == null) && ((object)matrix2 == null))
+            {
+                return false;
+            }
+
+            if ((object)matrix1 == null)
+            {
+                return true;
+            }
             return !Equals(matrix1, matrix2);
         }
 
