@@ -84,7 +84,7 @@ namespace Vector
 
         public static bool operator ==(Vector vector1, Vector vector2)
         {
-            if (((object)vector1 == null) || ((object)vector2 == null))
+            if ((object)vector1 == null)
             {
                 return false;
             }
@@ -93,7 +93,8 @@ namespace Vector
 
         public static bool operator !=(Vector vector1, Vector vector2)
         {
-            if (((object)vector1 == null) || ((object)vector2 == null))
+            if
+                ((object)vector1 == null)
             {
                 return false;
             }
