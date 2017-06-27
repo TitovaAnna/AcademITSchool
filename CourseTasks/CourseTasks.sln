@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vector", "Vector\Vector.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matrix", "Matrix\Matrix.csproj", "{6F603591-9544-4BC6-B3DC-578E285464B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSV", "CSV\CSV.csproj", "{5D4992FC-EF31-4E06-84BD-34D41C28C925}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableHash", "TableHash\TableHash.csproj", "{FDD86212-7846-4835-90F4-AD0D726B4909}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{6F603591-9544-4BC6-B3DC-578E285464B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F603591-9544-4BC6-B3DC-578E285464B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F603591-9544-4BC6-B3DC-578E285464B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D4992FC-EF31-4E06-84BD-34D41C28C925}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D4992FC-EF31-4E06-84BD-34D41C28C925}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D4992FC-EF31-4E06-84BD-34D41C28C925}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D4992FC-EF31-4E06-84BD-34D41C28C925}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDD86212-7846-4835-90F4-AD0D726B4909}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDD86212-7846-4835-90F4-AD0D726B4909}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDD86212-7846-4835-90F4-AD0D726B4909}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDD86212-7846-4835-90F4-AD0D726B4909}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -109,7 +109,6 @@ namespace Matrix
             return matrixCopy;
         }
 
-
         public static bool operator ==(Matrix matrix1, Matrix matrix2)
         {
             return Equals(matrix1, matrix2);
