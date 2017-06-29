@@ -10,7 +10,7 @@ namespace CSV
     {
         static void Main(string[] args)
         {
-            ConvertCSV.ReadCSV();
+                ConvertCSV.ReadCSV("CSV.txt","html.html");
         }
     }
 }

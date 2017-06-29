@@ -9,73 +9,120 @@ namespace CSV
 {
     class ConvertCSV
     {
-        public static void ReadCSV()
+        public static void ReadCSV(string fileNameIn, string fileNameOut)
         {
-            string textCSV = File.ReadAllText("CSV.txt", Encoding.Default);
+            string textCSV = File.ReadAllText(fileNameIn, Encoding.Default);
             StringBuilder textHTML = new StringBuilder();
 
-            File.AppendAllText("html.html", "\n<table>\n");
-            File.AppendAllText("html.html", "\n<tr>\n");
-            File.AppendAllText("html.html", "<td>");
+            textHTML.Append("<!DOCTYPE html>");
+            textHTML.Append(Environment.NewLine);
+            textHTML.Append("<html>");
+            textHTML.Append(Environment.NewLine);
+            textHTML.Append("<head>");
+            textHTML.Append(Environment.NewLine);
+            textHTML.Append("<title>Таблица</title>");
+            textHTML.Append(Environment.NewLine);
+            textHTML.Append("</head>");
+            textHTML.Append(Environment.NewLine);
+            textHTML.Append("<body>");
+            textHTML.Append(Environment.NewLine);
+            textHTML.Append("<table>");
+            textHTML.Append(Environment.NewLine);
+            textHTML.Append("<tr>");
+            textHTML.Append(Environment.NewLine);
+            textHTML.Append("<td>");
 
-            bool quoteOpen = false;
-            bool pair = false;
+            bool cellOpen = false;
+            bool quoteAdded = false;
 
             for (int i = 0; i < textCSV.Length; i++)
             {
                 char ch = textCSV[i];
                 char chNext = ' ';
+                int numberLast = textCSV.Length - 1;
 
                 if (i != textCSV.Length - 1)
                 {
                     chNext = textCSV[i + 1];
                 }
-
-                if ((ch == ',') && (quoteOpen))
+                if ((ch == ',') && cellOpen)
                 {
                     textHTML.Append(ch);
                 }
-                else if (((ch == '\n')) && (quoteOpen))
+                else if (((ch == '\n')) && cellOpen)
                 {
                     textHTML.Append("<br/>");
                 }
-                else if (((ch == ',') && (!quoteOpen)))
+                else if ((ch == ',') && !cellOpen)
                 {
                     textHTML.Append("</td><td>");
                 }
-                else if (((ch == '\n') && (!quoteOpen)))
-                {
-                    textHTML.Append("</td>\n</tr>\n<tr>\n<td>");
-                }
                 else if (ch == '"')
                 {
-                    if (pair)
+                    if (!cellOpen)
                     {
-                        pair = false;
+                        cellOpen = true;
+                    }
+                    else if (quoteAdded)
+                    {
+                        quoteAdded = false;
                     }
                     else if (chNext == ch)
                     {
                         textHTML.Append('"');
-                        pair = true;
+                        quoteAdded = true;
                     }
-                    else if ((chNext != ch) && (quoteOpen))
+                    else if (chNext != ch)
                     {
-                        textHTML.Append("</td><td>");
-                        quoteOpen = false;
+                        cellOpen = false;
                     }
-                    else if ((chNext != ch) && (!quoteOpen))
+                }
+                else if ((ch == '\n') && !cellOpen)
+                {
+                    textHTML.Append("</td>");
+                    textHTML.Append(Environment.NewLine);
+                    textHTML.Append("</tr>");
+                    textHTML.Append(Environment.NewLine);
+                    if (i == textCSV.Length - 1)
                     {
-                        textHTML.Append("<td>");
-                        quoteOpen = true;
+                        break;
                     }
+                    textHTML.Append("<tr>");
+                    textHTML.Append(Environment.NewLine);
+                    textHTML.Append("<td>");
+                }
+                else if (ch == '<')
+                {
+                    textHTML.Append("&lt");
+                }
+                else if (ch == '>')
+                {
+                    textHTML.Append("&gt");
+                }
+                else if (ch == '&')
+                {
+                    textHTML.Append("&amp");
                 }
                 else
                 {
                     textHTML.Append(ch);
                 }
+
+                if (i == numberLast)
+                {
+                    textHTML.Append("</td>");
+                    textHTML.Append(Environment.NewLine);
+                    textHTML.Append("</tr>");
+                }
             }
-            File.AppendAllText("html.html", textHTML.ToString());
-            File.AppendAllText("html.html", "\n</table>\n");
+            textHTML.Append(Environment.NewLine);
+            textHTML.Append("</table>");
+            textHTML.Append(Environment.NewLine);
+            textHTML.Append("</body>");
+            textHTML.Append(Environment.NewLine);
+            textHTML.Append("</html>");
+            File.AppendAllText(fileNameOut, textHTML.ToString());
         }
     }
 }
+

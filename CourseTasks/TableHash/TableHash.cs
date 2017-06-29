@@ -14,6 +14,10 @@ namespace TableHash
             get
             {
                 throw new NotImplementedException();
+
+                Console.WriteLine("ch={0},qOpen={1},qAddaed={2}", ch, quoteOpen, quoteAdded);
+                Console.ReadKey();
+
             }
         }
 
