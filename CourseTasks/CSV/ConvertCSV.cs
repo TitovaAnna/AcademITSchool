@@ -14,15 +14,15 @@ namespace CSV
             string textCSV = File.ReadAllText(fileNameIn, Encoding.Default);
             StringBuilder textHTML = new StringBuilder();
 
-            textHTML.AppendLine("<!DOCTYPE html>");
-            textHTML.AppendLine("<html>");
-            textHTML.AppendLine("<head>");
-            textHTML.AppendLine("<title>Таблица</title>");
-            textHTML.AppendLine("</head>");
-            textHTML.AppendLine("<body>");
-            textHTML.AppendLine("<table>");
-            textHTML.AppendLine("<tr>");
-            textHTML.AppendLine("<td>");
+            textHTML.AppendLine(@"<!DOCTYPE html>
+           <html>
+           <head>
+           <title>Таблица</title>
+           </head>
+           <body>
+           <table>
+           <tr>
+           <td>");
 
             bool cellOpen = false;
             bool quoteAdded = false;
@@ -97,11 +97,11 @@ namespace CSV
                     textHTML.Append(ch);
                 }
             }
-            textHTML.AppendLine("</td>");
-            textHTML.AppendLine("</tr>");
-            textHTML.AppendLine("</table>");
-            textHTML.AppendLine("</body>");
-            textHTML.Append("</html>");
+            textHTML.AppendLine(@"</td>
+            </tr>
+            </table>
+            </body>
+            </html>");
             File.WriteAllText(fileNameOut, textHTML.ToString());
         }
     }
