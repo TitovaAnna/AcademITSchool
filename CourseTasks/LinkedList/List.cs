@@ -9,7 +9,7 @@ namespace LinkedList
     class LinkedList<T>
     {
         private Node<T> head = null;
-        private Node<T> current = null;
+        private Node<T> lastNode = null;
         private int size = 0;
 
         public int Size
@@ -30,68 +30,40 @@ namespace LinkedList
             }
             else
             {
-                current.nextNode = node;
+                lastNode.NextNode = node;
             }
-            current = node;
-        }
-
-        public int GetSize()
-        {
-            return Size;
+            lastNode = node;
         }
 
         public Node<T> GetFirstNode()
         {
-            Node<T> firstNode = new Node<T>(head.value);
-            return firstNode;
+            return head;
         }
 
         public T GetValue(int index)
         {
-            if (index >= Size)
-            {
-                throw new ArgumentOutOfRangeException("Индекс больше количества узлов");
-            }
-            int i = 0;
-            Node<T> node = new Node<T>(head.value, head.nextNode);
-            while (i < index)
-            {
-                node = node.nextNode;
-                i++;
-            }
-            return node.value;
+            return GetNode(index).Value;
         }
 
         public T SetValue(int index, T valueNew)
         {
-            if (index >= Size)
-            {
-                throw new ArgumentOutOfRangeException("Индекс больше количества узлов");
-            }
-            int i = 0;
-            Node<T> node = new Node<T>(head.value, head.nextNode);
-
-            while (i < index)
-            {
-                node = node.nextNode;
-                i++;
-            }
-            T valueOld = node.value;
-            node.value = valueNew;
+            Node<T> node = GetNode(index);
+            T valueOld = node.Value;
+            node.Value = valueNew;
             return valueOld;
         }
 
         public Node<T> GetNode(int index)
         {
-            if (index >= Size)
+            if ((index >= Size) || (index < 0))
             {
-                throw new ArgumentOutOfRangeException("Индекс больше количества узлов");
+                throw new IndexOutOfRangeException("Индекс находится вне диапазона допустимых значений");
             }
             int i = 0;
-            Node<T> node = new Node<T>(head.value, head.nextNode);
+            Node<T> node = head;
             while (i < index)
             {
-                node = node.nextNode;
+                node = node.NextNode;
                 i++;
             }
             return node;
@@ -99,20 +71,18 @@ namespace LinkedList
 
         public T DeleteNode(int index)
         {
-            if (index >= Size)
+            if ((index >= Size) || (index < 0))
             {
-                throw new ArgumentOutOfRangeException("Индекс больше,чем количество узлов");
+                throw new IndexOutOfRangeException("Индекс находится вне диапазона допустимых значений");
             }
-            T valueOld = GetNode(index).value;
-
+            T valueOld = GetNode(index).Value;
+            size--;
             if (index == 0)
             {
                 head = GetNode(1);
                 return valueOld;
             }
-
-            GetNode(index - 1).nextNode = GetNode(index + 1);
-            size--;
+            GetNode(index - 1).NextNode = GetNode(index + 1);
             return valueOld;
         }
 
@@ -125,20 +95,20 @@ namespace LinkedList
 
         public void Insert(int index, T value)
         {
-            if (index > Size)
+            if ((index >= Size) || (index < 0))
             {
-                throw new ArgumentOutOfRangeException("Индекс больше,чем количество узлов");
+                throw new IndexOutOfRangeException("Индекс находится вне диапазона допустимых значений");
             }
 
             if (index == Size)
             {
                 Node<T> nodeNew = new Node<T>(value, null);
-                GetNode(index - 1).nextNode = nodeNew;
+                GetNode(index - 1).NextNode = nodeNew;
             }
             else if (index == 1)
             {
                 Node<T> nodeNew = new Node<T>(value, GetNode(index));
-                head.nextNode = nodeNew;
+                head.NextNode = nodeNew;
             }
             else if (index == 0)
             {
@@ -147,47 +117,86 @@ namespace LinkedList
             else
             {
                 Node<T> nodeNew = new Node<T>(value, GetNode(index));
-                GetNode(index - 1).nextNode = nodeNew;
+                GetNode(index - 1).NextNode = nodeNew;
             }
             size++;
         }
 
-        //public void DeleteNodeValue(T value)
-        //{
-        //    for (int i = 0; i < size; i++)
-        //    {
-        //        if (GetNode(i).value.Equals(value))
-        //        {
-        //            DeleteNode(i);
-        //            // size--;
-        //        }
-        //    }
-        //}
-    }
-
-    class Node<T>
-    {
-        public Node(T value)
+        public void DeleteNodeValue(T value)
         {
-            nextNode = null;
-            this.value = value;
+            Node<T> node = head;
+            int i = 0;
+            while (i < Size)
+            {
+                if (node.Value.Equals(value))
+                {
+                    DeleteNode(i);
+                }
+                else
+                {
+                    i++;
+                }
+                node = node.NextNode;
+            }
         }
 
-        public Node(T value, Node<T> nextNode)
+        public T DeleteFirstNode()
         {
-            this.nextNode = nextNode;
-            this.value = value;
+            T valueNode = head.Value;
+            DeleteNode(0);
+            return valueNode;
         }
 
-        public T value
+        public void InsertAfter(Node<T> nodeNew, Node<T> nodePevious)
         {
-            get;
-            set;
+            nodeNew.NextNode = nodePevious.NextNode;
+            nodePevious.NextNode = nodeNew;
+            size++;
         }
-        public Node<T> nextNode
+
+        public void DeleteAfter(Node<T> node)
         {
-            get;
-            set;
+            node.NextNode = node.NextNode.NextNode;
+            size--;
+        }
+
+        public void Rotation()
+        {
+            int i = 0;
+            Node<T> node = head;
+            Node<T> nodeTempPrevious = head;
+            Node<T> nodeTempNext = head.NextNode;
+            while (i < size)
+            {
+                if (i == size - 1)
+                {
+                    head.NextNode = null;
+                    head = node;
+                    break;
+                }
+                else
+                {
+                    nodeTempPrevious = node;
+                    node = nodeTempNext;
+                    nodeTempNext = node.NextNode;
+                    node.NextNode = nodeTempPrevious;
+                    i++;
+                }
+            }
+        }
+
+        public LinkedList<T> Copy()
+        {
+            LinkedList<T> list = new LinkedList<T>();
+            int i = 0;
+            Node<T> node = head;
+            while (i < size)
+            {
+                list.Add(node.Value);
+                node = node.NextNode;
+                i++;
+            }
+            return list;
         }
     }
 }
