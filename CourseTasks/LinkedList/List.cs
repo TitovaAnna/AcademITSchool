@@ -88,8 +88,15 @@ namespace LinkedList
 
         public void InsertBegining(T value)
         {
-            Node<T> headNew = new Node<T>(value, head);
-            head = headNew;
+            if (head == null)
+            {
+                head = new Node<T>(value);
+                lastNode = head;
+            }
+            else
+            {
+                head = new Node<T>(value, head);
+            }
             size++;
         }
 
