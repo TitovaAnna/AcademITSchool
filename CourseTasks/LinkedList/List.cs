@@ -71,19 +71,17 @@ namespace LinkedList
 
         public T DeleteNode(int index)
         {
-            if ((index >= Size) || (index < 0))
-            {
-                throw new IndexOutOfRangeException("Индекс находится вне диапазона допустимых значений");
-            }
-            T valueOld = GetNode(index).Value;
             size--;
             if (index == 0)
             {
-                head = GetNode(1);
-                return valueOld;
+                T valueHeadOld = head.Value;
+                head = head.NextNode;
+                return valueHeadOld;
             }
-            GetNode(index - 1).NextNode = GetNode(index + 1);
-            return valueOld;
+            Node<T> nodePrevious = GetNode(index - 1);
+            Node<T> nodeDelete = nodePrevious.NextNode;
+            nodePrevious.NextNode = nodeDelete.NextNode;
+            return nodeDelete.Value;
         }
 
         public void InsertBegining(T value)
@@ -102,63 +100,72 @@ namespace LinkedList
 
         public void Insert(int index, T value)
         {
-            if ((index >= Size) || (index < 0))
+            if ((index > size) || (index < 0))
             {
                 throw new IndexOutOfRangeException("Индекс находится вне диапазона допустимых значений");
             }
 
-            if (index == Size)
-            {
-                Node<T> nodeNew = new Node<T>(value, null);
-                GetNode(index - 1).NextNode = nodeNew;
-            }
-            else if (index == 1)
-            {
-                Node<T> nodeNew = new Node<T>(value, GetNode(index));
-                head.NextNode = nodeNew;
-            }
-            else if (index == 0)
+            if (index == 0)
             {
                 InsertBegining(value);
+                return;
+            }
+
+            if (index == size)
+            {
+                lastNode.NextNode = new Node<T>(value, null);
             }
             else
             {
-                Node<T> nodeNew = new Node<T>(value, GetNode(index));
-                GetNode(index - 1).NextNode = nodeNew;
+                Node<T> nodePrevious = GetNode(index - 1);
+                nodePrevious.NextNode = new Node<T>(value, nodePrevious.NextNode);
             }
             size++;
         }
 
-        public void DeleteNodeValue(T value)
+        public bool DeleteNodeValue(T value)
         {
             Node<T> node = head;
             int i = 0;
             while (i < Size)
             {
-                if (node.Value.Equals(value))
+                if ((ReferenceEquals(node.Value,value )))
                 {
                     DeleteNode(i);
+                    return true;
                 }
-                else
-                {
-                    i++;
-                }
+                i++;
                 node = node.NextNode;
             }
+            return false;
         }
 
         public T DeleteFirstNode()
         {
-            T valueNode = head.Value;
-            DeleteNode(0);
-            return valueNode;
+            if (head != null)
+            {
+                T valueNode = head.Value;
+                DeleteNode(0);
+                return valueNode;
+            }
+            return default(T);
         }
 
-        public void InsertAfter(Node<T> nodeNew, Node<T> nodePevious)
+        public void InsertAfter(T valueNew, T valuePrevious)
         {
-            nodeNew.NextNode = nodePevious.NextNode;
-            nodePevious.NextNode = nodeNew;
-            size++;
+            Node<T> node = head;
+            int i = 0;
+            while (i < Size)
+            {
+                if (node.Value.Equals(valuePrevious))
+                {
+                    node.NextNode = new Node<T>(valueNew, node.NextNode);
+                    size++;
+                    return;
+                }
+                i++;
+                node = node.NextNode;
+            }
         }
 
         public void DeleteAfter(Node<T> node)
@@ -167,12 +174,13 @@ namespace LinkedList
             size--;
         }
 
-        public void Rotation()
+        public void Rotate()
         {
             int i = 0;
             Node<T> node = head;
             Node<T> nodeTempPrevious = head;
             Node<T> nodeTempNext = head.NextNode;
+            lastNode = head;
             while (i < size)
             {
                 if (i == size - 1)

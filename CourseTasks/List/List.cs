@@ -24,17 +24,32 @@ namespace List
 
         public static void DeleteEven(List<int> list)
         {
-            list.RemoveAll(isEven);
+            int i = 0;
+
+            while (i < list.Count)
+            {
+                if (list[i] % 2 == 0)
+                {
+                    list.RemoveAt(i);
+                }
+                else
+                {
+                    i++;
+                }
+            }
         }
 
-        public static IEnumerable<int> Distinct(List<int> list)
+        public static List<int> Distinct(List<int> list)
         {
-            return list.Distinct();
-        }
-
-        private static bool isEven(int i)
-        {
-            return i % 2 == 0;
+            List<int> listDistinct = new List<int>();
+            foreach (int i in list)
+            {
+                if (!listDistinct.Contains(i))
+                {
+                    listDistinct.Add(i);
+                }
+            }
+            return listDistinct;
         }
     }
 }

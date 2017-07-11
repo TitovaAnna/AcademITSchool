@@ -32,11 +32,11 @@ namespace List
             Console.ReadKey();
 
             List<int> list = new List<int>() { 3, 4, 2, 4, 6, 7, 2, 3, 1 };
-            IEnumerable<int> distinctList = List.Distinct(list);
+            List<int> distinctList = List.Distinct(list);
 
             foreach (int s in distinctList)
             {
-                Console.WriteLine(list.ToString());
+                Console.WriteLine(s.ToString());
             }
             Console.ReadKey();
         }
