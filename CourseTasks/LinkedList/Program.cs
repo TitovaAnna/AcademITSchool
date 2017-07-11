@@ -36,14 +36,15 @@ namespace LinkedList
             listString.Add("misha");
             listString.Add("ksusha");
             listString.DeleteNodeValue(null);
-
+          
             //    list.DeleteNode(3);
-            list.InsertAfter(58, 7);
+        //    list.InsertAfter(103, list.GetNode(2));
+
             Console.WriteLine(listString.GetNode(0).Value);
             Console.WriteLine(listString.GetNode(1).Value);
             Console.WriteLine(listString.GetNode(2).Value);
             Console.WriteLine(listString.GetNode(3).Value);
-
+  Console.ReadKey();
 
 
 
@@ -70,6 +71,7 @@ namespace LinkedList
             Console.WriteLine(list.GetNode(1).Value);
             Console.WriteLine(list.GetNode(2).Value);
             Console.WriteLine(list.GetNode(3).Value);
+        //    Console.WriteLine(list.GetNode(4).Value);
             //   Console.WriteLine(list.GetNode(4).Value);
             //    Console.WriteLine(list.GetNode(5).Value);
             Console.ReadKey();

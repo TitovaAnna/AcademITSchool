@@ -71,6 +71,10 @@ namespace LinkedList
 
         public T DeleteNode(int index)
         {
+            if ((index >= Size) || (index < 0))
+            {
+                throw new IndexOutOfRangeException("Индекс находится вне диапазона допустимых значений");
+            }
             size--;
             if (index == 0)
             {
@@ -129,7 +133,7 @@ namespace LinkedList
             int i = 0;
             while (i < Size)
             {
-                if ((ReferenceEquals(node.Value,value )))
+                if (object.Equals(node.Value, value))
                 {
                     DeleteNode(i);
                     return true;
@@ -142,30 +146,18 @@ namespace LinkedList
 
         public T DeleteFirstNode()
         {
-            if (head != null)
+            if (head == null)
             {
-                T valueNode = head.Value;
-                DeleteNode(0);
-                return valueNode;
+                throw new InvalidOperationException("В списке нет элементов");
             }
-            return default(T);
+            T valueNode = head.Value;
+            DeleteNode(0);
+            return valueNode;
         }
 
-        public void InsertAfter(T valueNew, T valuePrevious)
+        public void InsertAfter(T valueNew, Node<T> nodePrevious)
         {
-            Node<T> node = head;
-            int i = 0;
-            while (i < Size)
-            {
-                if (node.Value.Equals(valuePrevious))
-                {
-                    node.NextNode = new Node<T>(valueNew, node.NextNode);
-                    size++;
-                    return;
-                }
-                i++;
-                node = node.NextNode;
-            }
+            nodePrevious.NextNode = new Node<T>(valueNew, nodePrevious.NextNode);
         }
 
         public void DeleteAfter(Node<T> node)
