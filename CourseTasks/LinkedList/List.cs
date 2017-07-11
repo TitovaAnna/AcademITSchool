@@ -85,6 +85,10 @@ namespace LinkedList
             Node<T> nodePrevious = GetNode(index - 1);
             Node<T> nodeDelete = nodePrevious.NextNode;
             nodePrevious.NextNode = nodeDelete.NextNode;
+            if (index == size - 1)
+            {
+                lastNode = nodePrevious;
+            }
             return nodeDelete.Value;
         }
 
@@ -133,7 +137,7 @@ namespace LinkedList
             int i = 0;
             while (i < Size)
             {
-                if (object.Equals(node.Value, value))
+                if (Equals(node.Value, value))
                 {
                     DeleteNode(i);
                     return true;
@@ -157,17 +161,35 @@ namespace LinkedList
 
         public void InsertAfter(T valueNew, Node<T> nodePrevious)
         {
-            nodePrevious.NextNode = new Node<T>(valueNew, nodePrevious.NextNode);
+            Node<T> node = new Node<T>(valueNew, nodePrevious.NextNode);
+            if (nodePrevious == lastNode)
+            {
+                lastNode = node;
+            }
+            nodePrevious.NextNode = node;
+            size++;
         }
 
         public void DeleteAfter(Node<T> node)
         {
+            if (Equals(node, lastNode))
+            {
+                return;
+            }
+            if (Equals(node.NextNode, lastNode))
+            {
+                lastNode = node;
+            }
             node.NextNode = node.NextNode.NextNode;
             size--;
         }
 
         public void Rotate()
         {
+            if (head == null)
+            {
+                return;
+            }
             int i = 0;
             Node<T> node = head;
             Node<T> nodeTempPrevious = head;
@@ -204,6 +226,21 @@ namespace LinkedList
                 i++;
             }
             return list;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            int i = 0;
+            Node<T> node = head;
+            while (i < size)
+            {
+                sb.Append(node.Value);
+                sb.Append(Environment.NewLine);
+                node = node.NextNode;
+                i++;
+            }
+            return sb.ToString();
         }
     }
 }

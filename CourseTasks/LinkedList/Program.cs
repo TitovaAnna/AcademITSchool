@@ -11,10 +11,7 @@ namespace LinkedList
         static void Main(string[] args)
         {
             LinkedList.LinkedList<int> list = new LinkedList<int>();
-
-            //      list.InsertBegining(56);
-            //    Console.WriteLine(list.GetValue(0));
-            //    Console.ReadKey();
+            list.Rotate();
 
             list.Add(9);
             list.Add(7);
@@ -22,29 +19,26 @@ namespace LinkedList
             list.Add(1);
             list.Add(23);
 
-            //    list.DeleteNode(3);
+            list.DeleteAfter(list.GetNode(1));
+
+            Console.WriteLine(list.ToString());
+            Console.ReadKey();
 
             LinkedList.LinkedList<string> listString = new LinkedList<string>();
 
-            //      list.InsertBegining(56);
-            //    Console.WriteLine(list.GetValue(0));
-            //    Console.ReadKey();
+            list.InsertBegining(56);
 
+            Console.WriteLine(listString.ToString());
             listString.Add("anya");
             listString.Add("tema");
             listString.Add(null);
             listString.Add("misha");
             listString.Add("ksusha");
             listString.DeleteNodeValue(null);
-          
-            //    list.DeleteNode(3);
-        //    list.InsertAfter(103, list.GetNode(2));
 
-            Console.WriteLine(listString.GetNode(0).Value);
-            Console.WriteLine(listString.GetNode(1).Value);
-            Console.WriteLine(listString.GetNode(2).Value);
-            Console.WriteLine(listString.GetNode(3).Value);
-  Console.ReadKey();
+
+            Console.WriteLine(listString.ToString());
+            Console.ReadKey();
 
 
 
@@ -67,11 +61,9 @@ namespace LinkedList
             //Console.ReadKey();
 
 
-            Console.WriteLine(list.GetNode(0).Value);
-            Console.WriteLine(list.GetNode(1).Value);
-            Console.WriteLine(list.GetNode(2).Value);
-            Console.WriteLine(list.GetNode(3).Value);
-        //    Console.WriteLine(list.GetNode(4).Value);
+            Console.WriteLine(list.ToString());
+
+            //    Console.WriteLine(list.GetNode(4).Value);
             //   Console.WriteLine(list.GetNode(4).Value);
             //    Console.WriteLine(list.GetNode(5).Value);
             Console.ReadKey();
@@ -79,28 +71,20 @@ namespace LinkedList
             Node<int> nodeNew = new Node<int>(334);
             //     list.InsertAfter(nodeNew, list.GetNode(2));
 
-            Console.WriteLine(list.GetNode(0).Value);
-            Console.WriteLine(list.GetNode(1).Value);
-            Console.WriteLine(list.GetNode(2).Value);
-            Console.WriteLine(list.GetNode(3).Value);
+
+            Console.WriteLine(list.ToString());
             Console.ReadKey();
 
             //     list.DeleteAfter(list.GetNode(2));
 
-            Console.WriteLine(list.GetNode(0).Value);
-            Console.WriteLine(list.GetNode(1).Value);
-            Console.WriteLine(list.GetNode(2).Value);
-            Console.WriteLine(list.GetNode(3).Value);
-            Console.WriteLine(list.GetNode(4).Value);
+            Console.WriteLine(list.ToString());
+
             Console.ReadKey();
 
-            list.Rotate();
+
             list.Copy();
-            Console.WriteLine(list.GetNode(0).Value);
-            Console.WriteLine(list.GetNode(1).Value);
-            Console.WriteLine(list.GetNode(2).Value);
-            Console.WriteLine(list.GetNode(3).Value);
-            Console.WriteLine(list.GetNode(4).Value);
+
+            Console.WriteLine(list.ToString());
             Console.ReadKey();
 
 
@@ -111,7 +95,6 @@ namespace LinkedList
             //Console.WriteLine(list.GetNode(3).Value);
             //Console.WriteLine(list.GetNode(4).Value);
             Console.ReadKey();
-
 
         }
     }
