@@ -75,11 +75,11 @@ namespace LinkedList
             {
                 throw new IndexOutOfRangeException("Индекс находится вне диапазона допустимых значений");
             }
-            size--;
             if (index == 0)
             {
                 T valueHeadOld = head.Value;
                 head = head.NextNode;
+                size--;
                 return valueHeadOld;
             }
             Node<T> nodePrevious = GetNode(index - 1);
@@ -89,6 +89,7 @@ namespace LinkedList
             {
                 lastNode = nodePrevious;
             }
+            size--;
             return nodeDelete.Value;
         }
 
@@ -172,11 +173,11 @@ namespace LinkedList
 
         public void DeleteAfter(Node<T> node)
         {
-            if (Equals(node, lastNode))
+            if (node == lastNode)
             {
                 return;
             }
-            if (Equals(node.NextNode, lastNode))
+            if (Equals(node == lastNode))
             {
                 lastNode = node;
             }

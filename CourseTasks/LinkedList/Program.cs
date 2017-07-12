@@ -19,7 +19,7 @@ namespace LinkedList
             list.Add(1);
             list.Add(23);
 
-            list.DeleteAfter(list.GetNode(1));
+            list.DeleteNode(3);
 
             Console.WriteLine(list.ToString());
             Console.ReadKey();
