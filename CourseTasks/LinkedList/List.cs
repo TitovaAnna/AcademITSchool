@@ -177,7 +177,7 @@ namespace LinkedList
             {
                 return;
             }
-            if (node == lastNode)
+            if (node.NextNode == lastNode)
             {
                 lastNode = node;
             }
