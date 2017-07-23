@@ -1,9 +1,11 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace Sort
+namespace SortOOP
 {
     class Program
     {
@@ -23,7 +25,7 @@ namespace Sort
             List<string> listStrings = new List<string>();
             try
             {
-                listStrings = ReadFile(args[0]);
+                listStrings = DataIO.ReadFile(args[0]);
             }
             catch (FileNotFoundException)
             {
@@ -63,12 +65,12 @@ namespace Sort
                     Console.ReadKey();
                     return;
                 }
-                Sort(listNumbers, increase);
+                SortOOP<int>.Sort(listNumbers, increase);
                 listStrings = listNumbers.ConvertAll(Convert.ToString);
             }
             else if (strings)
             {
-                Sort(listStrings, increase);
+                SortOOP<string>.Sort(listStrings, increase);
             }
             else
             {
@@ -79,7 +81,7 @@ namespace Sort
 
             try
             {
-                WriteFile(args[1], listStrings);
+                DataIO.WriteFile(args[1], listStrings);
             }
             catch (Exception)
             {
@@ -87,84 +89,5 @@ namespace Sort
                 Console.ReadKey();
             }
         }
-
-        public static List<string> ReadFile(string fileNameIn)
-        {
-            List<string> arrayLine = new List<string>();
-            using (StreamReader reader = new StreamReader(fileNameIn, Encoding.Default))
-            {
-                while (!reader.EndOfStream)
-                {
-                    arrayLine.Add(reader.ReadLine());
-                }
-            }
-            return arrayLine;
-        }
-
-        public static void Sort(List<int> listNumbers, bool increase)
-        {
-            for (int i = 1; i < listNumbers.Count; i++)
-            {
-                int temp = listNumbers[i];
-                int j = i - 1;
-                if (increase)
-                {
-                    while ((j >= 0) && (listNumbers[j].CompareTo(temp)>0))
-                    {
-                        listNumbers[j + 1] = listNumbers[j];
-                        j--;
-                    }
-                    listNumbers[j + 1] = temp;
-                }
-                else
-                {
-                    while ((j >= 0) && (listNumbers[j].CompareTo(temp)<0))
-                    {
-                        listNumbers[j + 1] = listNumbers[j];
-                        j--;
-                    }
-                    listNumbers[j + 1] = temp;
-                }
-            }
-        }
-
-        public static void Sort(List<string> listStrings, bool increase)
-        {
-            for (int i = 1; i < listStrings.Count; i++)
-            {
-                string temp = listStrings[i];
-                int j = i - 1;
-                if (increase)
-                {
-                    while ((j >= 0) && (listStrings[j].CompareTo(temp) > 0))
-                    {
-                        listStrings[j + 1] = listStrings[j];
-                        j--;
-                    }
-                    listStrings[j + 1] = temp;
-                }
-                else
-                {
-                    while ((j >= 0) && (listStrings[j].CompareTo(temp) < 0))
-                    {
-                        listStrings[j + 1] = listStrings[j];
-                        j--;
-                    }
-                    listStrings[j + 1] = temp;
-                }
-            }
-        }
-
-        public static void WriteFile(string fileNameOut, List<string> listStrings)
-        {
-            using (StreamWriter writer = new StreamWriter(fileNameOut))
-            {
-                foreach (string s in listStrings)
-                {
-                    writer.WriteLine(s);
-                }
-            }
-        }
     }
 }
-
