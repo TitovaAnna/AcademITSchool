@@ -7,16 +7,16 @@ using System.IO;
 
 namespace SortOOP
 {
-    class SortOOP<T> where T : IComparable
+    static class SortOOP
     {
-        public static void Sort(List<T> list, bool increase)
+        public static void Sort<T>(List<T> list, bool increase) where T : IComparable
         {
             for (int i = 1; i < list.Count; i++)
             {
                 T temp = list[i];
                 int j = i - 1;
                 {
-                    while ((j >= 0) && (Compare(list[j], temp, increase)))
+                    while (j >= 0 && Compare(list[j], temp, increase))
                     {
                         list[j + 1] = list[j];
                         j--;
@@ -25,9 +25,13 @@ namespace SortOOP
                 }
             }
         }
-        private static bool Compare(T data1, T data2, bool increase)
+        private static bool Compare<T>(T data1, T data2, bool increase) where T : IComparable
         {
-            return ((data1.CompareTo(data2) > 0) && (increase) || ((data1.CompareTo(data2) < 0) && (!increase)));
+            if (increase)
+            {
+                return data1.CompareTo(data2) > 0;
+            }
+            return data1.CompareTo(data2) < 0;
         }
     }
 }

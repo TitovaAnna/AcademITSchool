@@ -13,11 +13,11 @@ namespace SortOOP
         {
             if (args.Length < 4)
             {
-                Console.WriteLine("Необходимо ввести аргументы:" + Environment.NewLine +
-                   "имя входного файла" + Environment.NewLine +
-                   "имя выходного файла" + Environment.NewLine +
-                   "тип данных: \"-i\"-числа,\"-s\"-строки" + Environment.NewLine +
-                   "вид сортировки: \"-a\"-по возрастанию,\"-d\"-по убыванию");
+                Console.WriteLine(@"Необходимо ввести аргументы:
+имя входного файла
+имя выходного файла
+тип данных: ""-i""-числа,""-s""-строки
+вид сортировки: ""-a""-по возрастанию,""-d""-по убыванию");
                 Console.ReadKey();
                 return;
             }
@@ -57,7 +57,7 @@ namespace SortOOP
                 List<int> listNumbers = new List<int>();
                 try
                 {
-                    listNumbers = listStrings.ConvertAll(new Converter<string, int>(Convert.ToInt32));
+                    listNumbers = listStrings.ConvertAll(Convert.ToInt32);
                 }
                 catch (FormatException)
                 {
@@ -65,12 +65,12 @@ namespace SortOOP
                     Console.ReadKey();
                     return;
                 }
-                SortOOP<int>.Sort(listNumbers, increase);
+                SortOOP.Sort(listNumbers, increase);
                 listStrings = listNumbers.ConvertAll(Convert.ToString);
             }
             else if (strings)
             {
-                SortOOP<string>.Sort(listStrings, increase);
+                SortOOP.Sort(listStrings, increase);
             }
             else
             {

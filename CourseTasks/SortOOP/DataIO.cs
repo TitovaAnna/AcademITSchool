@@ -7,7 +7,7 @@ using System.IO;
 
 namespace SortOOP
 {
-    class DataIO
+    static class DataIO
     {
         public static List<string> ReadFile(string fileNameIn)
         {
