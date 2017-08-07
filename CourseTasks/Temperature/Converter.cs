@@ -8,10 +8,10 @@ namespace Temperature
 {
     class Converter
     {
-        public static double Convert(Scales.Scale scaleIn, Scales.Scale scaleOut, double value)
+        public static double Convert(IScales scaleIn, IScales scaleOut, double value)
         {
-            double temp = Scales.TransferToC(scaleIn, value);
-            return Scales.TransferFromC(scaleOut, temp);
+            double temp = scaleIn.TransferToC(value);
+            return scaleOut.TransferFromC(temp);
         }
     }
 }

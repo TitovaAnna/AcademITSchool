@@ -54,10 +54,13 @@ namespace SortOOP
 
             if (numbers)
             {
-                List<int> listNumbers = new List<int>();
+
                 try
                 {
+                    List<int> listNumbers = new List<int>();
                     listNumbers = listStrings.ConvertAll(Convert.ToInt32);
+                    SortOOP.Sort(listNumbers, increase);
+                    listStrings = listNumbers.ConvertAll(Convert.ToString);
                 }
                 catch (FormatException)
                 {
@@ -65,8 +68,7 @@ namespace SortOOP
                     Console.ReadKey();
                     return;
                 }
-                SortOOP.Sort(listNumbers, increase);
-                listStrings = listNumbers.ConvertAll(Convert.ToString);
+
             }
             else if (strings)
             {

@@ -46,12 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Celsius.cs" />
+    <Compile Include="Fahrenheit.cs" />
+    <Compile Include="Kelvin.cs" />
+    <Compile Include="ScaleList.cs" />
     <Compile Include="Scales.cs" />
-    <Compile Include="Temperature.cs">
+    <Compile Include="TemperatureForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Temperature.Designer.cs">
-      <DependentUpon>Temperature.cs</DependentUpon>
+    <Compile Include="TemperatureForm.Designer.cs">
+      <DependentUpon>TemperatureForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -65,8 +69,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Temperature.resx">
-      <DependentUpon>Temperature.cs</DependentUpon>
+    <EmbeddedResource Include="TemperatureForm.resx">
+      <DependentUpon>TemperatureForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
