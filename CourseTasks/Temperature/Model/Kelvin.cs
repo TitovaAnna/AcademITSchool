@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Temperature
+namespace Model
 {
-    class Kelvin : IScales
+    class Kelvin : IScale
     {
         public double TransferToC(double valueIn)
         {

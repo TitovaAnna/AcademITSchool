@@ -46,11 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Celsius.cs" />
-    <Compile Include="Fahrenheit.cs" />
-    <Compile Include="Kelvin.cs" />
-    <Compile Include="ScaleList.cs" />
-    <Compile Include="Scales.cs" />
+    <Compile Include="Model\Celsius.cs" />
+    <Compile Include="Model\Fahrenheit.cs" />
+    <Compile Include="Model\Kelvin.cs" />
+    <Compile Include="Model\ScaleList.cs" />
+    <Compile Include="Model\IScale.cs" />
     <Compile Include="TemperatureForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,7 +59,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Converter.cs" />
+    <Compile Include="Model\Converter.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

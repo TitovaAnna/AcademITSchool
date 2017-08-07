@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Model;
 
 namespace Temperature
 {
@@ -15,12 +16,14 @@ namespace Temperature
         public TemperatureForm()
         {
             InitializeComponent();
-            List<IScales> scaleList = ScaleList.GetListScale();
-            foreach (IScales scale in scaleList)
+            List<IScale> scaleList = ScaleList.GetListScale();
+            foreach (IScale scale in scaleList)
             {
                 comboBoxScaleIn.Items.Add(scale);
                 comboBoxScaleOut.Items.Add(scale);
             }
+            comboBoxScaleIn.SelectedIndex = 0;
+            comboBoxScaleOut.SelectedIndex = 0;
         }
         private void buttonConvert_Click(object sender, EventArgs e)
         {
@@ -30,13 +33,8 @@ namespace Temperature
                 MessageBox.Show("Необходимо ввести числовое значение температуры.");
                 return;
             }
-            double value = Converter.Convert((IScales)comboBoxScaleIn.SelectedItem, (IScales)comboBoxScaleOut.SelectedItem, Convert.ToDouble(textValue.Text));
+            double value = Converter.Convert((IScale)comboBoxScaleIn.SelectedItem, (IScale)comboBoxScaleOut.SelectedItem, Convert.ToDouble(textValue.Text));
             textBoxResult.Text = Math.Round(value, 3).ToString();
-        }
-
-        private void comboBoxScaleIn_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Temperature
+namespace Model
 {
-    interface IScales
+    interface IScale
     {
         double TransferToC(double valueIn);
         double TransferFromC(double valueIn);
