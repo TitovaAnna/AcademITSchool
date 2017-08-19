@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    class Celsius : IScale
+    class Celsius :  IScale
     {
         public double TransferToC(double valueIn)
         {
