@@ -10,15 +10,14 @@ namespace ArrayList
     class ArrayList<T> : IList<T>
     {
         private T[] array;
-        private int count = 0;
+        private int count;
 
         public ArrayList(int capacity)
         {
             array = new T[capacity];
         }
-        public ArrayList()
+        public ArrayList() : this(100)
         {
-            array = new T[100];
         }
         public int Count
         {
@@ -59,15 +58,14 @@ namespace ArrayList
 
         public int IndexOf(T item)
         {
-            int indexNotFound = -1;
             for (int i = 0; i < count; i++)
             {
-                if (array[i].Equals(item))
+                if (Equals(array[i], item))
                 {
                     return i;
                 }
             }
-            return indexNotFound;
+            return -1;
         }
 
         public void Insert(int index, T item)
@@ -90,14 +88,8 @@ namespace ArrayList
             {
                 throw new ArgumentOutOfRangeException("Индекс находится вне границ списка");
             }
-            if (index < Count)
-            {
-                for (int i = index; i < count - 1; i++)
-                {
-                    array[i] = array[i + 1];
-                }
-                count--;
-            }
+            Array.Copy(array, index + 1, array, index, count - index - 1);
+            count--;
         }
 
         public void Add(T item)
@@ -124,8 +116,7 @@ namespace ArrayList
 
         public bool Contains(T item)
         {
-            IEnumerable<T> elements = array.Where<T>(t => t.Equals(item));
-            if (elements.Count() > 0)
+            if (IndexOf(item) != -1)
             {
                 return true;
             }
@@ -138,26 +129,30 @@ namespace ArrayList
             {
                 throw new ArgumentOutOfRangeException("Индекс находится вне границ списка");
             }
-            int index = arrayIndex;
-            for (int i = 0; i < count - arrayIndex; i++)
-            {
-                array[i] = this.array[index];
-                index++;
-            }
+
+            Array.Copy(this.array, arrayIndex, array, 0, count - arrayIndex);
         }
 
         public bool Remove(T item)
         {
-            RemoveAt(IndexOf(item));
-            return true;
+            try
+            {
+                RemoveAt(IndexOf(item));
+                return true;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return false;
+            }
         }
 
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < count; i++)
+            sb.Append(array[0]);
+            for (int i = 1; i < count; i++)
             {
-                sb.Append("\n");
+                sb.Append(",");
                 sb.Append(array[i]);
             }
             return sb.ToString();
@@ -167,6 +162,7 @@ namespace ArrayList
         {
             for (int i = 0; i < count; i++)
             {
+
                 yield return array[i];
             }
         }
@@ -178,17 +174,23 @@ namespace ArrayList
 
         public void TrimToSize()
         {
-            T[] arrayTrim = new T[count];
-            CopyTo(arrayTrim, 0);
-            array = new T[count];
-            Array.Copy(arrayTrim, array, count);
+            if (array.Length != count)
+            {
+                T[] arrayTrim = new T[count];
+                CopyTo(arrayTrim, 0);
+                array = new T[count];
+                Array.Copy(arrayTrim, array, count);
+            }
         }
 
         public void EnsureCapacity(int capacityNew)
         {
-            T[] arrayNew = array;
-            array = new T[capacityNew];
-            Array.Copy(arrayNew, array, count);
+            if (array.Length != count)
+            {
+                T[] arrayNew = array;
+                array = new T[capacityNew];
+                Array.Copy(arrayNew, array, count);
+            }
         }
     }
 }

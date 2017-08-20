@@ -18,24 +18,22 @@ namespace ArrayList
             list.Add("Ann4");
             list.Add("Ann5");
 
-           Console.WriteLine(list);
-           Console.WriteLine(list.Count());
-           Console.ReadKey();
-
-            list.RemoveAt(0);
-
             Console.WriteLine(list);
-            Console.Write(list.Count);
+            Console.WriteLine(list.Count());
             Console.ReadKey();
 
-            list.Remove("Ann2");
+            //     list.RemoveAt(2);
 
-            Console.WriteLine(list);
+            Console.WriteLine(list.Contains("Ann2"));
             Console.Write(list.Count);
+
             Console.ReadKey();
             string[] array = new string[8];
-            list.CopyTo(array, 2);
+            list.CopyTo(array, 0);
 
+            for (int i = 0; i < array.Length; i++)
+                Console.Write(array[i]);
+            Console.ReadKey();
         }
     }
 }
