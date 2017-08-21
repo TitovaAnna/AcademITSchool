@@ -28,12 +28,21 @@ namespace ArrayList
             Console.Write(list.Count);
 
             Console.ReadKey();
-            string[] array = new string[8];
-            list.CopyTo(array, 0);
+
+            string[] array = new string[9];
+
+            list.CopyTo(array, 3);
 
             for (int i = 0; i < array.Length; i++)
-                Console.Write(array[i]);
+                Console.WriteLine(array[i]);
             Console.ReadKey();
+
+            foreach (string s in list)
+            {
+                Console.WriteLine(s);
+                Console.ReadKey();
+
+            }
         }
     }
 }

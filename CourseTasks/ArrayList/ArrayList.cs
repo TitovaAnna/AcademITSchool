@@ -11,6 +11,7 @@ namespace ArrayList
     {
         private T[] array;
         private int count;
+        private int numberChanges;
 
         public ArrayList(int capacity)
         {
@@ -80,6 +81,8 @@ namespace ArrayList
             }
             array[index] = item;
             count++;
+            numberChanges++;
+
         }
 
         public void RemoveAt(int index)
@@ -100,6 +103,7 @@ namespace ArrayList
             }
             array[count] = item;
             count++;
+            numberChanges++;
         }
 
         private void IncreaseCapacity()
@@ -112,38 +116,35 @@ namespace ArrayList
         public void Clear()
         {
             count = 0;
+            numberChanges++;
         }
 
         public bool Contains(T item)
         {
-            if (IndexOf(item) != -1)
-            {
-                return true;
-            }
-            return false;
+            return (IndexOf(item) != -1);
         }
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            if ((arrayIndex < 0) || (arrayIndex >= count))
+            if ((arrayIndex < 0) || (arrayIndex >= array.Length))
             {
-                throw new ArgumentOutOfRangeException("Индекс находится вне границ списка");
+                throw new ArgumentOutOfRangeException("Индекс находится вне границ массива");
             }
 
-            Array.Copy(this.array, arrayIndex, array, 0, count - arrayIndex);
+            Array.Copy(this.array, 0, array, arrayIndex, count);
         }
 
         public bool Remove(T item)
         {
-            try
+            int index = (IndexOf(item));
+            if (index != 1)
             {
                 RemoveAt(IndexOf(item));
+                numberChanges++;
                 return true;
             }
-            catch (ArgumentOutOfRangeException)
-            {
-                return false;
-            }
+            return false;
+
         }
 
         public override string ToString()
@@ -160,9 +161,13 @@ namespace ArrayList
 
         public IEnumerator<T> GetEnumerator()
         {
+            int currentNumberChanges = numberChanges;
             for (int i = 0; i < count; i++)
             {
-
+                if (numberChanges != currentNumberChanges)
+                {
+                    throw new InvalidOperationException("Нельзя изменять количество элементов коллекции во время прохода итератора");
+                }
                 yield return array[i];
             }
         }
@@ -185,7 +190,7 @@ namespace ArrayList
 
         public void EnsureCapacity(int capacityNew)
         {
-            if (array.Length != count)
+            if (array.Length != capacityNew)
             {
                 T[] arrayNew = array;
                 array = new T[capacityNew];
