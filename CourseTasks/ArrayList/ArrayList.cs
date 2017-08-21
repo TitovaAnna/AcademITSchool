@@ -93,6 +93,7 @@ namespace ArrayList
             }
             Array.Copy(array, index + 1, array, index, count - index - 1);
             count--;
+            numberChanges++;
         }
 
         public void Add(T item)
@@ -136,14 +137,15 @@ namespace ArrayList
 
         public bool Remove(T item)
         {
-            int index = (IndexOf(item));
+            int index = IndexOf(item);
             if (index != 1)
             {
-                RemoveAt(IndexOf(item));
+                RemoveAt(index);
                 numberChanges++;
                 return true;
             }
             return false;
+
 
         }
 
@@ -190,7 +192,7 @@ namespace ArrayList
 
         public void EnsureCapacity(int capacityNew)
         {
-            if (array.Length != capacityNew)
+            if (array.Length < capacityNew)
             {
                 T[] arrayNew = array;
                 array = new T[capacityNew];
