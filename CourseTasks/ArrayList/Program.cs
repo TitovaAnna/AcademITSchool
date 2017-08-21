@@ -22,7 +22,7 @@ namespace ArrayList
             Console.WriteLine(list.Count());
             Console.ReadKey();
 
-            //     list.RemoveAt(2);
+                list.Remove("Ann1");
 
             Console.WriteLine(list.Contains("Ann2"));
             Console.Write(list.Count);

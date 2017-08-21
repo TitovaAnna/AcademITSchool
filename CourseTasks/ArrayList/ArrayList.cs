@@ -138,10 +138,9 @@ namespace ArrayList
         public bool Remove(T item)
         {
             int index = IndexOf(item);
-            if (index != 1)
+            if (index != -1)
             {
                 RemoveAt(index);
-                numberChanges++;
                 return true;
             }
             return false;
